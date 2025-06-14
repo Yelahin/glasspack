@@ -1,0 +1,101 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{% static 'GlassPack/CSS/style.css'%}"
+      type="text/css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <title>{{ title }}</title>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <nav class="menu">
+          <div>
+            <a href="{% url 'home' %}">
+              <img
+                src="/static/GlassPack/Images/logo-transparent.png"
+                alt="logo image"
+              />
+            </a>
+            <ul>
+              {% for page in menu %}
+              <li>
+                <a
+                  href="{% url page.name %}"
+                  class="{% if request.resolver_match.url_name == page.name %}active{% endif %}"
+                  >{{ page.title }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+            <input type="checkbox" id="toggle" />
+            <label for="toggle">
+              <span></span>
+            </label>
+            <ul class="burger-menu">
+              {% for page in menu%}
+              <li>
+                <a
+                  href="{% url page.name %}"
+                  class="{% if request.resolver_match.url_name == page.name %}active{% endif %}"
+                  >{{ page.title }}</a
+                >
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <div class="main">
+        {% block content %}{% endblock %}
+       
+      </div>
+      <footer class="footer">
+        <div>
+          <ul>
+            <li>
+              <a href="{% url 'home' %}">
+                <img src="/static/GlassPack/Images/logo.png" alt="logo image" />
+              </a>
+            </li>
+            <li class="footer-company-bio">
+              We are a trusted supplier of high-<br />quality glass containers
+              for alcoholic <br />beverages, food, and beekeeping<br />
+              industries. Our range includes bottles,<br />
+              jars, and packaging solutions tailored<br />
+              to your production needs.
+            </li>
+          </ul>
+          <ul>
+            <li class="footer-title"><h2>Contacts</h2></li>
+            <li>GlassPack Solutions</li>
+            <li>12 Portfolio Ave, Exampletown</li>
+            <li>Business hours: 09:00–17:00</li>
+            <li>Registration number: EX00012345</li>
+            <li>Email: contact@glasspack.dev</li>
+            <li>Phone: +000 987 6543</li>
+          </ul>
+          <ul class="footer-nav-section">
+            <li class="footer-title"><h2>Navigation</h2></li>
+            {% for page in menu%}
+            <li>
+              <a href="{%url page.name%}" class="footer-nav">{{ page.title }}</a>
+            </li>
+            {% endfor%}
+          </ul>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
