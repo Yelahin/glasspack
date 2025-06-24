@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'GlassPack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'glasspack',
+        'USER': 'glasspack',
+        'PASSWORD': '12067maMA',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
