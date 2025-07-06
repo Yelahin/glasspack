@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponseNotFound
+from .models import FooterInfo
 
 menu = [
     {"title": "Home", "name": "home"},
@@ -8,10 +9,8 @@ menu = [
     {"title": "Contact us", "name": "contact"},
 ]
 
-data = {'menu': menu}
-
 def index(request):
-    return render(request, "GlassPack_site/index.html", context={"menu": menu, "title": "Home"})
+    return render(request, "GlassPack_site/index.html", context={"menu": menu, "title": "Home",})
 
 
 def about_us(request):

@@ -1,0 +1,4 @@
+{% for page in menu%}<li><a
+    href="{% url page.name %}"
+    class="{% if request.resolver_match.url_name == page.name %}active{% endif %}">
+{{ page.title }}</a></li>{% endfor %}
