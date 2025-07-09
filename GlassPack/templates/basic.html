@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
-
       rel="stylesheet"
       href="{% static 'GlassPack/CSS/style.css'%}"
       type="text/css"
@@ -19,7 +18,7 @@
     <title>{{ title }}</title>
   </head>
   <body>
-    <div class="wrapper">
+    <div>
       <header>
         <nav class="menu">
           <div>
@@ -53,12 +52,12 @@
                 <img src="/static/GlassPack/Images/logo.png" alt="logo image" />
               </a>
             </li>
-            <li class="footer-company-bio">
+            <li>
               {{ footer.company_info|linebreaksbr }}
             </li>
           </ul>
           <ul>
-            <li class="footer-title"><h2>Contacts</h2></li>
+            <li><h2>Contacts</h2></li>
             <li>{{ footer.company_name}}</li>
             <li>{{ footer.address }}</li>
             <li>{{ footer.work_time }}</li>
@@ -67,7 +66,7 @@
             <li>{{ footer.phone }} </li>
           </ul>
           <ul class="footer-nav-section">
-            <li class="footer-title"><h2>Navigation</h2></li>
+            <li><h2>Navigation</h2></li>
             {% for page in menu%}
             <li>
               <a href="{%url page.name%}" class="footer-nav">{{ page.title }}</a>
