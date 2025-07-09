@@ -1,3 +1,6 @@
+/*-----------------basic.html*-----------------  */
+
+
 body {
   font-family: "Montserrat", sans-serif;
   margin: 0px;
@@ -10,7 +13,7 @@ body {
 }
 
 .main {
-  padding-top: 80px;
+  padding-top: 100px;
   flex: 1 1 auto;
   flex-grow: 1;
 }
@@ -21,7 +24,7 @@ body {
   top: 0px;
   width: 100%;
   background-color: white;
-  height: 80px;
+  height: 100px;
   box-shadow: 0px 1px 10px;
 }
 
@@ -32,7 +35,7 @@ body {
 }
 
 .menu a {
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   text-decoration: none;
   font-weight: 550;
   color: #243e7f;
@@ -44,7 +47,7 @@ body {
 
 .menu a:hover,
 a.active {
-  color: #c48002;
+  color: #dc9003;
   transition: all 0.1s linear;
 }
 
@@ -63,7 +66,7 @@ a.active {
 
 .menu img {
   padding-left: 50px;
-  width: 200px;
+  width: 225px;
 }
 
 #toggle,
@@ -86,7 +89,7 @@ a.active {
 
 .footer div {
   display: flex;
-  width: 1000px;
+  width: 1100px;
   padding: 0px 5vw;
   justify-content: space-between;
   margin-top: 35px;
@@ -108,14 +111,22 @@ a.active {
 .footer h2 {
   margin: 0px;
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: 2.25rem;
   font-weight: 600;
+  color: white;
+}
+
+.footer li {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: rgb(190, 190, 190);
+
 }
 
 li,
 .footer-nav {
   position: relative;
-  color: rgb(199, 199, 199);
+  color: rgb(190, 190, 190);
   line-height: 2;
   text-decoration: none;
   transition: 0.2s ease-out;
@@ -148,6 +159,231 @@ li,
   left: 5px
 }
 
+/**-----------------index.html*-----------------*/
+
+.background-section,
+.title-bg,
+.text-block,
+.button-block,
+.mission-section,
+.contact-section,
+.products-section,
+.categories,
+.bottles,
+.jars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.background-section {
+  background-image:
+  url("../Images/bg-main.jpg");
+  background-size: cover;
+  background-position: center;
+  max-width: 100vw;
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+.title-bg {
+  max-width: 1500px;
+  height: auto;
+  background-color: rgb(255, 255, 255, 0.65);
+  margin-bottom: 5vh;
+  flex-direction: column;
+  margin-right: 2vw;
+  margin-left: 2vw;
+}
+
+.text-block {
+  flex-direction: column;
+}
+
+.title-bg h2 {
+  color:#243e7f;
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 2.5vh;
+  line-height: 1.5;
+  margin-bottom: 2vh;
+}
+
+.title-bg p {
+  color: #252525;
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: center;
+  line-height: 1.9;
+  margin: 0;
+  margin-bottom: 5vh;
+}
+
+.button-block {
+  margin-bottom: 2vh;
+}
+
+.open-catalogue-but,
+.about-company-but {
+  display: inline-block;
+  line-height: 75px;
+  text-align: center;
+  width: 250px;
+  height: 75px;
+  margin-right: 1vw;
+  font-size: 1.35rem;
+  font-weight: 600;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+}
+
+.open-catalogue-but {
+  background-color: #243e7f;
+  color: white;
+  border-radius: 5px;
+}
+
+.about-company-but {
+  color: rgb(24, 24, 24);
+  background-color: transparent;
+  text-decoration-line: underline;
+  text-decoration-color: #243e7f;
+  text-decoration-thickness: 4px; 
+}
+
+.mission-section {
+  flex-direction: column;
+  margin-top: 5vh;
+}
+
+.mission-section h2 {
+  font-size: 3rem;
+  font-weight: 400;
+}
+
+.mission-section p {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.contact-section {
+  margin-top: 15vh;
+}
+
+.contact-section p,
+.contact-section a {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.contact-section p {
+  color: #656565;
+  margin-right: 3vw;
+}
+
+.contact-section a {
+  padding: 10px 15px 10px 15px;
+  text-decoration: none;
+  color: white;
+  background-color: #404040;
+  border-radius: 10px;
+}
+
+.products-section {
+  flex-direction: column;
+  margin-top: 15vh;
+}
+
+.products-section h2 {
+  font-size: 3rem;
+  font-weight: 450;
+  margin-bottom: 1vh;
+}
+
+.products-section p {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #454545;
+}
+
+.bottles,
+.jars {
+  background-color: rgb(1, 1, 1, 0.705);
+  height: 400px;
+  width: 600px;
+  transition: 0.3s ease;
+}
+
+.categories {
+  gap: 50px;
+  margin-bottom: 5vh;
+}
+
+.bottles img,
+.jars img {
+  filter: brightness(30%);
+  transition: 0.3s ease;
+}
+
+.bottles img {
+  width: 350px;
+  height: 350px;
+}
+
+.jars img {
+  width: 225px;
+  height: 225px;
+}
+
+.bottles:hover img,
+.jars:hover img {
+  transform: scale(1.05);
+  filter: brightness(60%)
+}
+
+.bottles:hover,
+.jars:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.bottles span,
+.jars span {
+  position: absolute;
+  text-decoration: none;
+  color: white;
+  font-size: 3rem;
+  font-weight: 600;
+}
+
+/**-----------------about.html*-----------------*/
+
+.about-us {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-text h2 {
+  margin-top: 5vh;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #252525;
+}
+
+.about-text p {
+  font-size: 1.35rem;
+  font-weight: 450;
+  line-height: 1.5;
+  text-align: justify;
+  text-align-last: left;
+  color: #333333;
+}
+
+.about-text strong {
+  font-weight: 650;
+}
 
 @media (max-width: 900px) {
   .menu {
@@ -258,7 +494,7 @@ li,
   }
 
   .footer {
-    height: 1000px;
+    height: 1200px;
   }
 
   .footer img {
@@ -269,4 +505,23 @@ li,
     margin-right: 90px;
   }
 
+  .button-block {
+    flex-direction: column;
+  }
+  
+  .open-catalogue-but {
+    margin-bottom: 2vh;
+  }
+
+  .contact-section {
+    flex-direction: column;
+  }
+
+
+}
+
+@media (max-width: 1299px) {
+  .categories {
+    flex-direction: column;
+  }
 }
