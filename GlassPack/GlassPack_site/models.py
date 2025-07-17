@@ -68,3 +68,6 @@ class Product(models.Model):
             self.slug = slugify(self.model)
         super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return 
+
