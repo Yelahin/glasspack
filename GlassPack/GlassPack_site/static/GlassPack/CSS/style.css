@@ -25,7 +25,8 @@ body {
   width: 100%;
   background-color: white;
   height: 100px;
-  box-shadow: 0px 1px 10px;
+  z-index: 9999;
+  box-shadow: 0px 1px ;
 }
 
 .menu ul {
@@ -328,12 +329,10 @@ li,
 }
 
 .bottles img {
-  width: 350px;
   height: 350px;
 }
 
 .jars img {
-  width: 225px;
   height: 225px;
 }
 
@@ -363,6 +362,7 @@ li,
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0px 50px 0px 50px;
 }
 
 .about-text h2 {
@@ -384,6 +384,216 @@ li,
 .about-text strong {
   font-weight: 650;
 }
+
+/**-----------------contact.html*-----------------*/
+
+.contact,
+.contact-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact {
+  margin-top: 5vh;
+  flex-direction: column;
+}
+
+.contact-box {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 100px;
+}
+
+.contact p {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 10vh;
+}
+
+.contact h1 {
+  font-size: 4rem;
+  font-weight: 400;
+}
+
+.contact-info li {
+  color:#252525;
+  font-size: 2.25rem;
+  text-decoration: none;
+}
+
+.contact-info {
+  list-style: none;
+  padding-left: 0;
+}
+
+.contact-input {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+  justify-content: space-between;
+  margin-left: 2.5vw;
+  margin-right: 2.5vw;
+}
+
+.contact-input input,
+.contact-input textarea {
+  height: 45px;
+  font-size: 1.5rem;
+}
+
+/**-----------------products.html*-----------------*/
+
+.product-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-page h1 {
+  font-size: 4rem;
+  font-weight: 400;
+}
+
+.production-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  max-width: 275px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  margin-bottom: 100px;
+  transition: 0.25s;
+}
+
+.product:hover {
+  transform: translateY(-15px);
+}
+
+.product img {
+  height: 400px;
+}
+
+.product-name {
+  margin-right: auto;
+  color: #404040;
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.prod-but {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  width: 100%;
+  height: 50px;
+  text-decoration: none;
+  background-color:#243e7f;
+  color: white;
+  transition: 0.2s;
+}
+
+.prod-but:hover {
+  background-color: #3153aa;
+}
+
+.prod-container {
+  display: flex;
+  max-width: 500px;
+  height: 500px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-img {
+  height: 100%;
+}
+
+.product-show {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 50px 0px 50px;
+}
+
+.prod-model {
+  font-weight: 500;
+}
+
+.prod-parameters {
+  margin-top: 20px;
+  border-spacing: 0px 25px;
+  table-layout: auto;
+}
+
+.prod-parameters td {
+  font-size: 1.25rem;
+}
+
+.prod-parameters td:first-child {
+  padding-right: 200px;
+}
+
+.back-to-prod {
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: white;
+  background-color: #243e7f;
+  text-align: center;
+  padding: 15px;
+  transition: 0.2s;
+}
+
+.back-to-prod:hover {
+  background-color: #3153aa;
+  color: rgb(216, 216, 216);
+}
+
+.product-filter {
+  display: inline-block;
+  margin: 0 0 75px 0;
+}
+
+.product-filter a {
+  margin: 50px;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color:#243e7f
+}
+
+.product-filter a.active {
+  color:#dc9003
+}
+
 
 @media (max-width: 900px) {
   .menu {
@@ -515,8 +725,17 @@ li,
 
   .contact-section {
     flex-direction: column;
+    margin-bottom: 50px;
   }
 
+  .contact-box {
+    flex-direction: column;
+  }
+
+  .product-show {
+    flex-direction: column;
+    height: auto;
+  }
 
 }
 

@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseNotFound
-from .models import FooterInfo
+from .models import FooterInfo, ContactText, AboutInfo, IndexContent, Product
 
 menu = [
     {"title": "Home", "name": "home"},
@@ -10,19 +10,31 @@ menu = [
 ]
 
 def index(request):
-    return render(request, "GlassPack_site/index.html", context={"menu": menu, "title": "Home",})
+    index_content = IndexContent.objects.first() 
+    return render(request, "GlassPack_site/index.html", context={"menu": menu, "title": "Home", "index_content": index_content})
 
 
 def about_us(request):
-    return render(request, "GlassPack_site/about.html", context={"menu": menu, "title": "About us"})
+    about_text = AboutInfo.objects.first()
+    return render(request, "GlassPack_site/about.html", context={"menu": menu, "title": "About us", "about_text":about_text})
 
 
 def products(request):
-    return render(request, "GlassPack_site/products.html", context={"menu": menu, "title": "Products"})
+    selected_types = request.GET.get('category', '')
+    selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
+    selected_production = Product.objects.filter(product_type__in=selected_types)
+    return render(request, "GlassPack_site/products.html", context={"menu": menu, "title": "Products", 'selected_types': selected_types, 'selected_production': selected_production})
 
 
 def contact_us(request):
-    return render(request, "GlassPack_site/contact.html", context={"menu": menu, "title": "Contact us"})
+    contact_info = FooterInfo.objects.first()
+    contact_subtitle = ContactText.objects.first()
+    return render(request, "GlassPack_site/contact.html", context={"menu": menu, "title": "Contact us", "contact_info": contact_info, "contact_subtitle": contact_subtitle})
+
+
+def show_product(request, slug):
+    product = get_object_or_404(Product, slug=slug)
+    return render(request, "GlassPack_site/show_product.html", context={"menu":menu, "product": product})
 
 
 def page_not_found(request, exception):

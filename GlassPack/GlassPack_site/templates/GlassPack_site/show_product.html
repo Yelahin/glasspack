@@ -1,0 +1,39 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div class="product-show">
+    <div class="prod-container">
+        <img src="{{ product.image.url}}" alt="{{ product.model }}" class="product-img">
+    </div>
+    <div class="product-info">
+        <h1 class="prod-model">{{ product.model }}</h1>
+        <table class="prod-parameters">
+            <tr>
+                <td>Volume</td>
+                <td>{{ product.volume }} ml</td>
+            </tr>
+            <tr>
+                <td>Diameter</td>
+                <td>{{ product.diameter }} mm</td>
+            </tr>
+            <tr>
+                <td>Weight</td>
+                <td>{{ product.weight}} g</td>
+            </tr>
+            <tr>
+                <td>Height</td>
+                <td>{{ product.height }} mm</td>
+            </tr>
+            <tr>
+                <td>Type of finish</td>
+                <td>{{ product.finish_type }}</td>
+            </tr>
+            <tr>
+                <td>Color</td>
+                <td>{{ product.color }}</td>
+            </tr>
+        </table>
+        <a href="{{ request.GET.next|default:'/products/' }}" class="back-to-prod">Back to Products</a>
+    </div>
+</div>
+{% endblock %}

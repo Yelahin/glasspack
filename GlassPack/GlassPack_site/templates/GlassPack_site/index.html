@@ -5,8 +5,8 @@
     <div class="background-section">
         <div class="title-bg">
             <div class="text-block">
-                <h2>Precision Glass Bottles & Jars for Food, <br> Beverages & Cosmetics</h2>
-                <p>Premium glass bottles and jars for spirits, gourmet foods, and cosmetics — tailored design, direct from the manufacturer.</p>
+                <h2>{{ index_content.title|linebreaksbr }}</h2>
+                <p>{{ index_content.subtitle|linebreaksbr }}</p>
             </div>
             <div class="button-block">
                 <a class="open-catalogue-but" href="{% url 'products' %}">OPEN CATALOGUE</a>
@@ -17,13 +17,11 @@
     <div class="mission-section">
         <h2>Our Mission</h2>
         <p>
-  We supply premium glass bottles and jars for alcoholic beverages, food,<br>
-  and beekeeping products — trusted by producers across Europe and the CIS.
-</p>
-<p>
-  Our direct collaboration with top glass factories ensures<br>
-  consistent quality, flexible designs, and on-time delivery.
-</p>
+            {{ index_content.mission_intro|linebreaksbr }}
+        </p>
+        <p>
+            {{ index_content.mission_details|linebreaksbr }}
+        </p>
     </div>
     <div class="contact-section">
         <p>GlassPack — your trusted partner in premium glass packaging!</p>
@@ -31,14 +29,13 @@
     </div>
     <div class="products-section">
         <h2>Our Products</h2>
-        <p>Our range of glass packaging includes bottles and jars in various sizes, shapes, and applications. <br>
-Glass is a natural, chemical-free material that is 100% recyclable and environmentally friendly.</p>
+        <p>{{ index_content.products_subtitle|linebreaksbr }}</p>
         <div class="categories">
-            <a href="{% url 'products' %}" class="bottles">
-                <img src="/static/GlassPack/Images/bottle.webp" alt="bottles">
+            <a href="{% url 'products' %}?category=bottles" class="bottles">
+                <img src="/static/GlassPack/Images/beer-ln-330.jpg" alt="bottles">
                 <span>Bottles</span>
             </a>
-            <a href="{% url 'products' %}" class="jars">
+            <a href="{% url 'products' %}?category=jars" class="jars">
                 <img src="/static/GlassPack/Images/jar.webp" alt="jars">
                 <span>Jars</span>
             </a>
