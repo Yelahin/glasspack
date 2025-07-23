@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseNotFound
-from .models import FooterInfo, ContactText, AboutInfo, IndexContent, Product
+from .models import FooterInfo, ContactInfo, AboutInfo, IndexContent, Product, Category
 
 menu = [
     {"title": "Home", "name": "home"},
@@ -20,15 +20,18 @@ def about_us(request):
 
 
 def products(request):
-    selected_types = request.GET.get('category', '')
+    selected_types = request.GET.get('categories', '')
     selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
-    selected_production = Product.objects.filter(product_type__in=selected_types)
+
+    selected_categories = Category.objects.filter(name__in=selected_types)
+    
+    selected_production = Product.objects.filter(categories__in=selected_categories, is_published=True)
     return render(request, "GlassPack_site/products.html", context={"menu": menu, "title": "Products", 'selected_types': selected_types, 'selected_production': selected_production})
 
 
 def contact_us(request):
     contact_info = FooterInfo.objects.first()
-    contact_subtitle = ContactText.objects.first()
+    contact_subtitle = ContactInfo.objects.first()
     return render(request, "GlassPack_site/contact.html", context={"menu": menu, "title": "Contact us", "contact_info": contact_info, "contact_subtitle": contact_subtitle})
 
 

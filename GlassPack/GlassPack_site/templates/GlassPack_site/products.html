@@ -5,9 +5,9 @@
 <div class="product-page">
     <h1>Products</h1>
     <div class="product-filter">
-        <a href="?category={{ selected_types|type_select:'bottles' }}"
+        <a href="?categories={{ selected_types|type_select:'bottles' }}"
            class="{% if 'bottles' in selected_types %}active{% endif %}">BOTTLES</a>
-        <a href="?category={{ selected_types|type_select:'jars' }}"
+        <a href="?categories={{ selected_types|type_select:'jars' }}"
            class="{% if 'jars' in selected_types %}active{% endif %}">JARS</a>
     </div>
     <div class="production-section">

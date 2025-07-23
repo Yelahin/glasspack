@@ -31,11 +31,11 @@
         <h2>Our Products</h2>
         <p>{{ index_content.products_subtitle|linebreaksbr }}</p>
         <div class="categories">
-            <a href="{% url 'products' %}?category=bottles" class="bottles">
+            <a href="{% url 'products' %}?categories=bottles" class="bottles">
                 <img src="/static/GlassPack/Images/beer-ln-330.jpg" alt="bottle">
                 <span>Bottles</span>
             </a>
-            <a href="{% url 'products' %}?category=jars" class="jars">
+            <a href="{% url 'products' %}?categories=jars" class="jars">
                 <img src="/static/GlassPack/Images/jar.webp" alt="jar">
                 <span>Jars</span>
             </a>
