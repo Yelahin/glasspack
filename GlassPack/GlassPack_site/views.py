@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseNotFound
 from .models import FooterInfo, ContactInfo, AboutInfo, IndexContent, Product, Category
+from .forms import ContactUsForm, UserMessage
 
 menu = [
     {"title": "Home", "name": "home"},
@@ -26,13 +27,33 @@ def products(request):
     selected_categories = Category.objects.filter(name__in=selected_types)
     
     selected_production = Product.objects.filter(categories__in=selected_categories, is_published=True)
-    return render(request, "GlassPack_site/products.html", context={"menu": menu, "title": "Products", 'selected_types': selected_types, 'selected_production': selected_production})
+
+    data = {
+        'menu': menu,
+        'title': 'Products', 
+        'selected_types': selected_types,
+        'selected_production': selected_production
+    }
+    return render(request, "GlassPack_site/products.html", context=data)
 
 
 def contact_us(request):
+    if request.method == 'POST':
+        form = ContactUsForm(request.POST)
+        if form.is_valid():
+            form.save()
+    form = ContactUsForm()
+
     contact_info = FooterInfo.objects.first()
     contact_subtitle = ContactInfo.objects.first()
-    return render(request, "GlassPack_site/contact.html", context={"menu": menu, "title": "Contact us", "contact_info": contact_info, "contact_subtitle": contact_subtitle})
+    data = {
+        'menu': menu,
+        'title': "Contact us",
+        'contact_info': contact_info,
+        'contact_subtitle': contact_subtitle,
+        'form': form
+    }
+    return render(request, "GlassPack_site/contact.html", context=data)
 
 
 def show_product(request, slug):
