@@ -104,3 +104,17 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
+
+#Contact Form
+class UserMessage(models.Model):
+    full_name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=255)
+    comment = models.TextField(max_length=1000)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "7. User messages"
+        verbose_name_plural = "7. User messages"
+
+    def __str__(self):
+        return f"{self.full_name} {self.email} {self.date}"
