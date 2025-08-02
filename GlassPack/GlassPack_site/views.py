@@ -1,65 +1,61 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseNotFound
+from django.urls import reverse_lazy
+from .utils import DataMixin
 from .models import FooterInfo, ContactInfo, AboutInfo, IndexContent, Product, Category
-from .forms import ContactUsForm, UserMessage
-
-menu = [
-    {"title": "Home", "name": "home"},
-    {"title": "About us", "name": "about"},
-    {"title": "Products", "name": "products"},
-    {"title": "Contact us", "name": "contact"},
-]
-
-def index(request):
-    index_content = IndexContent.objects.first() 
-    return render(request, "GlassPack_site/index.html", context={"menu": menu, "title": "Home", "index_content": index_content})
+from .forms import ContactUsForm
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 
-def about_us(request):
-    about_text = AboutInfo.objects.first()
-    return render(request, "GlassPack_site/about.html", context={"menu": menu, "title": "About us", "about_text":about_text})
+class IndexPage(DataMixin, TemplateView):
+    template_name = "GlassPack_site/index.html"
+    title = 'Home'
+    page_content = IndexContent.objects.first()
 
 
-def products(request):
-    selected_types = request.GET.get('categories', '')
-    selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
+class AboutUsPage(DataMixin, TemplateView):
+    template_name = "GlassPack_site/about.html"
+    title = "About us"
+    page_content = AboutInfo.objects.first()
 
-    selected_categories = Category.objects.filter(name__in=selected_types)
+
+class ProductPage(DataMixin, ListView):
+    template_name = "GlassPack_site/products.html"
+    context_object_name = 'selected_production'
+    allow_empty = False
+    paginate_by = 6
+
+    def get_queryset(self):
+        selected_types = self.request.GET.get('categories', '')
+        selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
+        self.selected_types = selected_types
+        selected_categories = Category.objects.filter(name__in=self.selected_types)
+        return Product.objects.filter(categories__in=selected_categories, is_published=True)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['selected_types'] = getattr(self, 'selected_types', ['bottles', 'jars'])
+        return self.get_mixin_content(context, title='Products')
     
-    selected_production = Product.objects.filter(categories__in=selected_categories, is_published=True)
 
-    data = {
-        'menu': menu,
-        'title': 'Products', 
-        'selected_types': selected_types,
-        'selected_production': selected_production
-    }
-    return render(request, "GlassPack_site/products.html", context=data)
+class ContactUsPage(DataMixin, FormView):
+    form_class = ContactUsForm
+    template_name = "GlassPack_site/contact.html"
+    success_url = reverse_lazy('contact')
+    title = "Contact us"
+    extra_context = {'contact_info': FooterInfo.objects.first(),
+                     'contact_subtitle': ContactInfo.objects.first()}
 
-
-def contact_us(request):
-    if request.method == 'POST':
-        form = ContactUsForm(request.POST)
-        if form.is_valid():
-            form.save()
-    form = ContactUsForm()
-
-    contact_info = FooterInfo.objects.first()
-    contact_subtitle = ContactInfo.objects.first()
-    data = {
-        'menu': menu,
-        'title': "Contact us",
-        'contact_info': contact_info,
-        'contact_subtitle': contact_subtitle,
-        'form': form
-    }
-    return render(request, "GlassPack_site/contact.html", context=data)
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
 
 
-def show_product(request, slug):
-    product = get_object_or_404(Product, slug=slug)
-    return render(request, "GlassPack_site/show_product.html", context={"menu":menu, "product": product})
-
+class ShowProduct(DataMixin, DetailView):
+    model = Product
+    template_name = "GlassPack_site/show_product.html"
+    context_object_name = 'product'
+    slug_url_kwarg = 'slug'
+    
 
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
