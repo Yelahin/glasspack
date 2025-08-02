@@ -5,8 +5,8 @@
     <div class="background-section">
         <div class="title-bg">
             <div class="text-block">
-                <h2>{{ index_content.title|linebreaksbr }}</h2>
-                <p>{{ index_content.subtitle|linebreaksbr }}</p>
+                <h2>{{ page_content.title|linebreaksbr }}</h2>
+                <p>{{ page_content.subtitle|linebreaksbr }}</p>
             </div>
             <div class="button-block">
                 <a class="open-catalogue-but" href="{% url 'products' %}">OPEN CATALOGUE</a>
@@ -17,10 +17,10 @@
     <div class="mission-section">
         <h2>Our Mission</h2>
         <p>
-            {{ index_content.mission_intro|linebreaksbr }}
+            {{ page_content.mission_intro|linebreaksbr }}
         </p>
         <p>
-            {{ index_content.mission_details|linebreaksbr }}
+            {{ page_content.mission_details|linebreaksbr }}
         </p>
     </div>
     <div class="contact-section">
@@ -29,7 +29,7 @@
     </div>
     <div class="products-section">
         <h2>Our Products</h2>
-        <p>{{ index_content.products_subtitle|linebreaksbr }}</p>
+        <p>{{ page_content.products_subtitle|linebreaksbr }}</p>
         <div class="categories">
             <a href="{% url 'products' %}?categories=bottles" class="bottles">
                 <img src="/static/GlassPack/Images/beer-ln-330.jpg" alt="bottle">

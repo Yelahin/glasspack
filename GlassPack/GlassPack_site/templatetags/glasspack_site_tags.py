@@ -12,4 +12,6 @@ def type_select(value, arg):
         result.remove(arg)
     else:
         result.append(arg)
+    if len(result) < 1:
+        result = ['bottles', 'jars']
     return ','.join(result)

@@ -1,4 +1,6 @@
+from cProfile import label
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 from GlassPack_site.models import Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo, UserMessage
 # Register your models here.
 
@@ -46,18 +48,24 @@ class VolumeFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'model', 'time_create', 'is_published')
+    list_display = ('id', 'model', 'product_photo', 'time_create', 'is_published')
     list_display_links = ('id', 'model', 'time_create')
+    readonly_fields = ['product_photo']
     ordering = ('time_create',)
     list_editable = ('is_published',)
     list_per_page = 10
     search_fields = ('model', )
     list_filter = (VolumeFilter,'is_published', 'categories')
+    save_on_top = True
 
     
     def volume_filter(self, request, queryset):
         if self.volume < 300:
             return queryset.filter(volume__lt=300)
+        
+    @admin.display(ordering='id')
+    def product_photo(self, product: Product):
+        return mark_safe(f"<img src='{product.image.url}' width='50'>")
 
 
 @admin.register(Category)
