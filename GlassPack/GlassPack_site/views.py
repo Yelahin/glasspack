@@ -1,4 +1,5 @@
-from django.http import HttpResponseNotFound
+from urllib import request
+from django.http import HttpResponse, HttpResponseNotFound, QueryDict
 from django.urls import reverse_lazy
 from .utils import DataMixin
 from .models import FooterInfo, ContactInfo, AboutInfo, IndexContent, Product, Category
@@ -24,16 +25,23 @@ class ProductPage(DataMixin, ListView):
     allow_empty = False
     paginate_by = 6
 
+    min_volume_obj = Product.objects.order_by('volume').first().volume
+    max_volume_obj = Product.objects.order_by('-volume').first().volume
+
     def get_queryset(self):
         selected_types = self.request.GET.get('categories', '')
         selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
         self.selected_types = selected_types
         selected_categories = Category.objects.filter(name__in=self.selected_types)
-        return Product.objects.filter(categories__in=selected_categories, is_published=True)
+        min_volume = int(self.request.GET.get("slider_1")) if self.request.GET.get("slider_1") else self.min_volume_obj
+        max_volume = int(self.request.GET.get("slider_2")) if self.request.GET.get("slider_2") else self.max_volume_obj
+        return Product.objects.filter(categories__in=selected_categories, volume__range=(min_volume, max_volume), is_published=True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['selected_types'] = getattr(self, 'selected_types', ['bottles', 'jars'])
+        context['min_volume'] = self.min_volume_obj
+        context['max_volume'] = self.max_volume_obj
         return self.get_mixin_content(context, title='Products')
     
 
