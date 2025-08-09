@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
@@ -16,8 +17,8 @@ class FooterInfo(models.Model):
     phone = models.CharField(max_length=25)
 
     class Meta:
-        verbose_name = "3. Footer information"
-        verbose_name_plural = "3. Footer information"
+        verbose_name = "5. Footer information"
+        verbose_name_plural = "5. Footer information"
 
 
 
@@ -29,8 +30,8 @@ class ContactInfo(models.Model):
     subtitle = models.TextField()
 
     class Meta:
-        verbose_name = "6. Contact us page information"
-        verbose_name_plural = "6. Contact us page information"
+        verbose_name = "8. Contact us page information"
+        verbose_name_plural = "8. Contact us page information"
 
     def __str__(self):
         return self.subtitle
@@ -40,8 +41,8 @@ class AboutInfo(models.Model):
     content = models.TextField()
 
     class Meta:
-        verbose_name = "5. About us page information"
-        verbose_name_plural = "5. About us page information"
+        verbose_name = "7. About us page information"
+        verbose_name_plural = "7. About us page information"
 
     def __str__(self):
         return self.content
@@ -56,8 +57,8 @@ class IndexContent(models.Model):
     products_subtitle = models.TextField(max_length=500)
 
     class Meta:
-        verbose_name = "4. Home page information"
-        verbose_name_plural = "4. Home page information"
+        verbose_name = "6. Home page information"
+        verbose_name_plural = "6. Home page information"
 
     def __str__(self):
         return self.title
@@ -69,8 +70,30 @@ class Category(models.Model):
     name = models.CharField(max_length=100)
 
     class Meta:
-        verbose_name = "2. Categories"
-        verbose_name_plural = "2. Categories"
+        verbose_name = "4. Categories"
+        verbose_name_plural = "4. Categories"
+
+    def __str__(self):
+        return self.name
+    
+
+class FinishType(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "2. Types of finish"
+        verbose_name_plural = "2. Types of finish"
+
+    def __str__(self):
+        return self.name 
+    
+
+class Color(models.Model):
+    name = models.CharField(max_length=100)
+
+    class Meta:
+        verbose_name = "3. Colors"
+        verbose_name_plural = '3. Colors'
 
     def __str__(self):
         return self.name
@@ -82,8 +105,8 @@ class Product(models.Model):
     height = models.IntegerField()
     weight = models.IntegerField()
     diameter = models.IntegerField()
-    color = models.CharField(max_length=30)
-    finish_type = models.CharField(max_length=100)
+    color = models.ForeignKey(Color, on_delete=models.PROTECT, null=True, blank=True)
+    finish_type = models.ForeignKey(FinishType, on_delete=models.PROTECT, null=True, blank=True)
     categories = models.ManyToManyField(Category)
     slug = models.SlugField(max_length=100, blank=True)
     image = models.ImageField(upload_to='products/')
@@ -106,6 +129,7 @@ class Product(models.Model):
         return reverse('product_detail', kwargs={'slug': self.slug})
 
 #Contact Form
+
 class UserMessage(models.Model):
     full_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=255)
@@ -113,8 +137,8 @@ class UserMessage(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "7. User messages"
-        verbose_name_plural = "7. User messages"
+        verbose_name = "9. User messages"
+        verbose_name_plural = "9. User messages"
 
     def __str__(self):
         return f"{self.full_name} {self.email} {self.date}"

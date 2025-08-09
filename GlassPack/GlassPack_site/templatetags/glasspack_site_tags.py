@@ -1,5 +1,5 @@
 from django import template
-import GlassPack_site.views as views
+from ..models import Product
 
 register = template.Library()
 
@@ -15,3 +15,10 @@ def type_select(value, arg):
     if len(result) < 1:
         result = ['bottles', 'jars']
     return ','.join(result)
+
+
+@register.filter
+def finish_param(selected_finish_types, finish_str):
+    if selected_finish_types:
+        return f"&finish_types={finish_str}"
+    return ""

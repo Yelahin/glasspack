@@ -2,7 +2,7 @@ let sliderOne = document.getElementById("slider-1");
 let sliderTwo = document.getElementById("slider-2");
 let tooltipOne = document.getElementById("tooltip-1");
 let tooltipTwo = document.getElementById("tooltip-2");
-let minGap = 1; // минимальное расстояние между ползунками
+let minGap = 50; // минимальное расстояние между ползунками
 
 function slideOne() {
     if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
@@ -23,9 +23,7 @@ function slideTwo() {
 }
 
 function moveTooltip(slider, tooltip) {
-    // родитель .slider-wrapper, внутри которого тултип и input
     const wrapper = slider.parentElement;
-
     const sliderWidth = wrapper.offsetWidth;
     const min = parseInt(slider.min);
     const max = parseInt(slider.max);
@@ -34,11 +32,9 @@ function moveTooltip(slider, tooltip) {
     const percent = (val - min) / (max - min);
     const position = percent * sliderWidth;
 
-    // смещение, чтобы тултип был по центру над ползунком
     const tooltipWidth = tooltip.offsetWidth;
     let left = position - tooltipWidth / 2;
 
-    // чтобы тултип не вышел за границы
     if (left < 0) left = 0;
     if (left + tooltipWidth > sliderWidth) left = sliderWidth - tooltipWidth;
 
@@ -46,7 +42,6 @@ function moveTooltip(slider, tooltip) {
 }
 
 function updateTrackColor() {
-    // если есть общий трек для обоих слайдеров, обновляем его
     const track = document.querySelector(".slider-track");
     if (!track) return;
 
@@ -54,6 +49,20 @@ function updateTrackColor() {
     const percent2 = (sliderTwo.value - sliderTwo.min) / (sliderTwo.max - sliderTwo.min) * 100;
     track.style.background = `linear-gradient(to right, #dadae5 ${percent1}%, #243e7f ${percent1}%, #243e7f ${percent2}%, #dadae5 ${percent2}%)`;
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    const checkboxes = document.querySelectorAll('input[name="finish_types"]');
+    const form = checkboxes.length > 0 ? checkboxes[0].closest("form") : null;
+
+    if (form) {
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener("change", () => {
+                form.submit();
+            });
+        });
+    }
+})
 
 function submitForm() {
     document.getElementById("filter-form").submit();
@@ -63,3 +72,4 @@ window.onload = function () {
     slideOne();
     slideTwo();
 };
+
