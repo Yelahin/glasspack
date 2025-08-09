@@ -121,7 +121,6 @@ a.active {
   font-size: 1.25rem;
   font-weight: 500;
   color: rgb(190, 190, 190);
-
 }
 
 li,
@@ -182,13 +181,13 @@ li,
   url("../Images/bg-main.jpg");
   background-size: cover;
   background-position: center;
-  max-width: 100vw;
+  max-width: 100%;
   width: 100%;
   height: calc(100vh - 80px);
 }
 
 .title-bg {
-  max-width: 1500px;
+  max-width: 1400px;
   height: auto;
   background-color: rgb(255, 255, 255, 0.65);
   margin-bottom: 5vh;
@@ -208,6 +207,7 @@ li,
   margin-bottom: 2.5vh;
   line-height: 1.5;
   margin-bottom: 2vh;
+  padding: 25px;
 }
 
 .title-bg p {
@@ -218,6 +218,8 @@ li,
   line-height: 1.9;
   margin: 0;
   margin-bottom: 5vh;
+  padding-right: 25px;
+  padding-left: 25px;
 }
 
 .button-block {
@@ -305,7 +307,7 @@ li,
 
 .products-section p {
   font-size: 1.25rem;
-  font-weight: 300;
+  font-weight: 400;
   color: #454545;
 }
 
@@ -372,10 +374,9 @@ li,
   color: #252525;
 }
 
-.about-text p {
-  font-size: 1.35rem;
+.about-text {
+  font-size: 1.5rem;
   font-weight: 450;
-  line-height: 1.5;
   text-align: justify;
   text-align-last: left;
   color: #333333;
@@ -665,14 +666,40 @@ li,
 .main-product-filter h4 {
   font-size: 1.25rem;
   font-weight: 550;
-  margin-bottom: 50px;
 }
 
+#volume {
+  margin-bottom: 25px;
+}
+
+.prod-not-found {
+  height: 750px;
+}
+
+
+.finish-filter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.finish-filter input {
+  margin-bottom: 30px;
+}
+
+.finish-filter label {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+
+.finish-filter h4 {
+  margin-top: 50px;
+}
 
 /**-----------------slider.html*-----------------*/
 
 
-.container{
+.container {
     position: relative;
     width: 100%;
     height: 100px;
@@ -744,18 +771,22 @@ input[type="range"]:active::-webkit-slider-thumb{
     border: 3px solid #3264fe;
 }
 
-.slider-wrapper span {
-    position: absolute;
-    top: -30px;
-    transform: translateX(-50%);
-    background: #243e7f;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 14px;
-    white-space: nowrap;
+.filters-wrapper {
+  position: relative;
+  margin-bottom: 75px;
 }
 
+.filters-wrapper span {
+  position: absolute;
+  left: 50%;
+  top: -45px;
+  background: #243e7f;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  white-space: nowrap;
+}
 
 /**-----------------pagination.html*-----------------*/
 

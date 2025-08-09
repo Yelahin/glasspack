@@ -1,7 +1,7 @@
 from cProfile import label
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from GlassPack_site.models import Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo, UserMessage
+from GlassPack_site.models import Color, FinishType, Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo, UserMessage
 # Register your models here.
 
 #Filter classes
@@ -68,11 +68,24 @@ class ProductAdmin(admin.ModelAdmin):
         return mark_safe(f"<img src='{product.image.url}' width='50'>")
 
 
+@admin.register(FinishType)
+class FinishTypeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    list_display_links = ['name']
+
+
+@admin.register(Color)
+class ColorAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    list_display_links = ['name']
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     list_per_page = 10
+
 
 #Pages classes
 
