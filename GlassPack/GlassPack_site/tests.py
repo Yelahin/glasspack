@@ -13,7 +13,7 @@ class GetPages(TestCase):
             name='test_image.jpg',
             content=b'\x47\x49\x46\x38\x39\x61',
             content_type='image/gif'
-    )
+        )
         category = Category.objects.create(name='bottles')
         product = Product.objects.create(model='example 1',
                                          volume=999,
@@ -24,6 +24,7 @@ class GetPages(TestCase):
                                          finish_type='Some type',
                                          image=image,
                                          is_published=True)
+        
         product.categories.add(category)
 
     def test_index_page(self):

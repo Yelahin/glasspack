@@ -3,14 +3,14 @@
 {% load glasspack_site_tags %}
 {% block content %}
 {% with s1=request.GET.slider_1|default:min_volume s2=request.GET.slider_2|default:max_volume %}
-{% with finish_str=selected_finish_types|join:"&finish_types=" %}
+{% with finish_str=selected_finish_types|join:"&finish_types=" color_str=selected_colors|join:"&colors=" %}
 <div class="product-page">
     <h1>Products</h1>
     <div class="bottles-jars-filter">
-        {% with finish_param=selected_finish_types|finish_param:finish_str %}
-            <a href="?categories={{ selected_types|type_select:'bottles' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}"
+        {% with finish_param=selected_finish_types|finish_param:finish_str color_param=selected_colors|color_param:color_str %}
+            <a href="?categories={{ selected_types|type_select:'bottles' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}{{ color_param }}"
             class="{% if 'bottles' in selected_types %}active{% endif %}">BOTTLES</a>
-            <a href="?categories={{ selected_types|type_select:'jars' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}"
+            <a href="?categories={{ selected_types|type_select:'jars' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}{{ color_param }}"
             class="{% if 'jars' in selected_types %}active{% endif %}">JARS</a>
         {% endwith %}
     </div>
@@ -46,10 +46,19 @@
                         </div>
                         <div class="finish-filter">
                             <h4>Type of finish</h4>
-                            {% for finish in type_of_finish %}
+                            {% for finish in filtered_finish_products %}
                                 <div>
                                     <input type="checkbox" id="finish_type_{{ forloop.counter }}" name="finish_types" value="{{ finish.finish_type__name }}" {% if selected_finish_types and finish.finish_type__name in selected_finish_types%}checked{% endif %}>
                                     <label for="finish_type_{{ forloop.counter}}">{{ finish.finish_type__name }} ({{ finish.count }})</label>
+                                </div>
+                            {% endfor%}
+                        </div>
+                        <div class="color-filter">
+                            <h4>Color</h4>
+                            {% for col in filtered_color_products %}
+                                <div>
+                                    <input type="checkbox" id="color_{{ forloop.counter }}" name="colors" value="{{ col.color__name }}" {% if selected_colors and col.color__name in selected_colors %}checked{% endif %}>
+                                    <label for="color_{{ forloop.counter}}">{{ col.color__name }} ({{ col.count }})</label>
                                 </div>
                             {% endfor%}
                         </div>
@@ -58,19 +67,19 @@
         </div>
         <div class="pagination">
             {% if page_obj.has_other_pages %}
-                {% with cats=selected_types|join:"," %}
-                    {% with s1=s1|stringformat:"s" s2=s2|stringformat:"s" %}
-                        {% if selected_finish_types %}  
-                            {% with full_query="categories="|add:cats|add:"&slider_1="|add:s1|add:"&slider_2="|add:s2|add:"&finish_types="|add:finish_str %}
-                                {% include 'includes/pagination.html' %}
-                            {% endwith %}
-                        {% else %}
-                            {% with full_query="categories="|add:cats|add:"&slider_1="|add:s1|add:"&slider_2="|add:s2 %}
-                                {% include 'includes/pagination.html' %}
-                            {% endwith %}
-                        {% endif %}
-                    {% endwith %}
-                {% endwith %}
+                {% if page_obj.has_previous %}
+                    <a href="?{{ querystring }}&page={{ page_obj.previous_page_number }}" class="page-link">&laquo;</a>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <span class="page-link active">{{ num }}</span>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a href="?{{ querystring }}&page={{ num }}" class="page-link">{{ num }}</a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a href="?{{ querystring }}&page={{ page_obj.next_page_number }}" class="page-link">&raquo;</a>
+                {% endif %}
             {% endif %}
         </div>
     </div>
