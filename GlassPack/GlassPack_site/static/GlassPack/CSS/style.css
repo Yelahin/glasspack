@@ -683,11 +683,13 @@ li,
   width: 100%;
 }
 
-.finish-filter input {
+.finish-filter input,
+.color-filter input {
   margin-bottom: 30px;
 }
 
-.finish-filter label {
+.finish-filter label,
+.color-filter label {
   font-size: 1.15rem;
   font-weight: 500;
 }

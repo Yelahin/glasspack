@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, Max, Min
 from django.http import  HttpResponseNotFound
 from django.urls import reverse_lazy
 from .utils import DataMixin
@@ -26,35 +26,45 @@ class ProductPage(DataMixin, ListView):
 
 
     def get_queryset(self):
-        self.min_volume_obj = Product.objects.order_by('volume').first().volume
-        self.max_volume_obj = Product.objects.order_by('-volume').first().volume
+        #display min-max volume in template
+        self.volumes = Product.objects.aggregate(min_volume=Min('volume'), max_volume=Max('volume'))
 
+        #template urls + template filters
         selected_types = self.request.GET.get('categories', '')
         self.selected_types = selected_types.split(',') if selected_types else ['bottles', 'jars']
-
         self.selected_finish_types = self.request.GET.getlist('finish_types') 
+        self.selected_colors = self.request.GET.getlist('colors')
 
+        #get_queryset return
+        checked_finish_types = self.selected_finish_types if self.selected_finish_types else Product.objects.filter(is_published=True).values_list('finish_type__name', flat=True).distinct()
+        checked_color = self.selected_colors if self.selected_colors else Product.objects.filter(is_published=True).values_list('color__name', flat=True).distinct()
+
+        #pagination url
+        self.querydict = self.request.GET.copy()
+        if 'page' in self.querydict:
+            self.querydict.pop('page')
+
+        #get objects from db
         selected_categories = Category.objects.filter(name__in=self.selected_types)
+        min_volume = int(self.request.GET.get("slider_1")) if self.request.GET.get("slider_1") else self.volumes['min_volume']
+        max_volume = int(self.request.GET.get("slider_2")) if self.request.GET.get("slider_2") else self.volumes['max_volume']
+        self.filtered_finish_products = Product.objects.filter(categories__in=selected_categories, color__name__in=checked_color, volume__range=(min_volume, max_volume), is_published=True).values('finish_type__name').annotate(count=Count('finish_type'))
+        self.filtered_color_products = Product.objects.filter(categories__in=selected_categories, finish_type__name__in=checked_finish_types, volume__range=(min_volume, max_volume), is_published=True).values('color__name').annotate(count=Count('color'))
 
-        min_volume = int(self.request.GET.get("slider_1")) if self.request.GET.get("slider_1") else self.min_volume_obj
-        max_volume = int(self.request.GET.get("slider_2")) if self.request.GET.get("slider_2") else self.max_volume_obj
-
-
-        if self.selected_finish_types:
-            products = Product.objects.filter(categories__in=selected_categories, volume__range=(min_volume, max_volume), finish_type__name__in=self.selected_finish_types,  is_published=True).order_by("categories")
-        else:
-            products = Product.objects.filter(categories__in=selected_categories, volume__range=(min_volume, max_volume), is_published=True).order_by("categories")
-
+        #get_queryset return
+        products = Product.objects.filter(categories__in=selected_categories, volume__range=(min_volume, max_volume), finish_type__name__in=checked_finish_types, color__name__in=checked_color, is_published=True).order_by("model")
         return products
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['selected_types'] = getattr(self, 'selected_types', ['bottles', 'jars'])
-        context['min_volume'] = self.min_volume_obj
-        context['max_volume'] = self.max_volume_obj
-        context['type_of_finish'] = Product.objects.filter(is_published=True).values('finish_type__name').annotate(count=Count('finish_type'))
+        context['min_volume'] = self.volumes['min_volume']
+        context['max_volume'] = self.volumes['max_volume']
+        context['filtered_finish_products'] = self.filtered_finish_products
+        context['filtered_color_products'] = self.filtered_color_products
         context['selected_finish_types'] = self.selected_finish_types
-        context['filter_active'] = bool(self.selected_finish_types)
+        context['selected_colors'] = self.selected_colors
+        context['querystring'] = self.querydict.urlencode()
         return self.get_mixin_content(context, title='Products')
     
 

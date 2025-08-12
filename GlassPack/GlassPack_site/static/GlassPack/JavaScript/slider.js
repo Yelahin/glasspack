@@ -2,7 +2,7 @@ let sliderOne = document.getElementById("slider-1");
 let sliderTwo = document.getElementById("slider-2");
 let tooltipOne = document.getElementById("tooltip-1");
 let tooltipTwo = document.getElementById("tooltip-2");
-let minGap = 50; // минимальное расстояние между ползунками
+let minGap = 50;
 
 function slideOne() {
     if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
@@ -50,19 +50,22 @@ function updateTrackColor() {
     track.style.background = `linear-gradient(to right, #dadae5 ${percent1}%, #243e7f ${percent1}%, #243e7f ${percent2}%, #dadae5 ${percent2}%)`;
 }
 
-
 document.addEventListener("DOMContentLoaded", function() {
-    const checkboxes = document.querySelectorAll('input[name="finish_types"]');
-    const form = checkboxes.length > 0 ? checkboxes[0].closest("form") : null;
+    const form = document.getElementById("filter-form");
+    if (!form) return;
 
-    if (form) {
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", () => {
-                form.submit();
-            });
+    form.querySelectorAll("input, select").forEach(input => {
+        input.addEventListener("change", () => {
+            form.submit();
         });
-    }
-})
+    });
+
+    [sliderOne, sliderTwo].forEach(slider => {
+        slider.addEventListener("change", () => {
+            form.submit();
+        });
+    });
+});
 
 function submitForm() {
     document.getElementById("filter-form").submit();
@@ -72,4 +75,3 @@ window.onload = function () {
     slideOne();
     slideTwo();
 };
-

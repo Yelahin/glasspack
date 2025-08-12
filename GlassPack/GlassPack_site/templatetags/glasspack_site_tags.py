@@ -1,5 +1,4 @@
 from django import template
-from ..models import Product
 
 register = template.Library()
 
@@ -21,4 +20,10 @@ def type_select(value, arg):
 def finish_param(selected_finish_types, finish_str):
     if selected_finish_types:
         return f"&finish_types={finish_str}"
+    return ""
+
+@register.filter
+def color_param(selected_colors, color_str):
+    if selected_colors:
+        return f"&colors={color_str}"
     return ""
