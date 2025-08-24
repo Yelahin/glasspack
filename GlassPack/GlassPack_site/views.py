@@ -65,6 +65,7 @@ class ProductPage(DataMixin, ListView):
         context['selected_finish_types'] = self.selected_finish_types
         context['selected_colors'] = self.selected_colors
         context['querystring'] = self.querydict.urlencode()
+
         return self.get_mixin_content(context, title='Products')
     
 
@@ -90,4 +91,3 @@ class ShowProduct(DataMixin, DetailView):
 
 def page_not_found(request, exception):
     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
-

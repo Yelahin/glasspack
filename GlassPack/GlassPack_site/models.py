@@ -1,4 +1,4 @@
-
+from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
@@ -109,7 +109,7 @@ class Product(models.Model):
     finish_type = models.ForeignKey(FinishType, on_delete=models.PROTECT, null=True, blank=True)
     categories = models.ManyToManyField(Category)
     slug = models.SlugField(max_length=100, blank=True)
-    image = models.ImageField(upload_to='products/')
+    image = models.ImageField(upload_to='products/', blank=True)
     is_published = models.BooleanField()
     time_create = models.DateTimeField(auto_now_add=True)
 
@@ -133,7 +133,7 @@ class Product(models.Model):
 class UserMessage(models.Model):
     full_name = models.CharField(max_length=50)
     email = models.EmailField(max_length=255)
-    comment = models.TextField(max_length=1000)
+    comment = models.TextField(max_length=1000, validators=[MinLengthValidator(10)])
     date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
