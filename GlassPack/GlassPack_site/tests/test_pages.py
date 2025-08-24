@@ -1,31 +1,31 @@
 from http import HTTPStatus
-from django.test import TestCase
 from django.urls import reverse
-from .models import Product, Category
+from .test_utils import BaseTestCase
+from ..models import Product, Category, Color, FinishType
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-# Create your tests here.
 
-
-class GetPages(TestCase):
+class GetPages(BaseTestCase):
     def setUp(self):
         image = SimpleUploadedFile(
             name='test_image.jpg',
             content=b'\x47\x49\x46\x38\x39\x61',
             content_type='image/gif'
         )
-        category = Category.objects.create(name='bottles')
+        bottles = Category.objects.create(name='bottles')
+        color = Color.objects.create(name='yellow')
+        finish_type = FinishType.objects.create(name='Twist off')
         product = Product.objects.create(model='example 1',
                                          volume=999,
                                          height=999,
                                          weight=999, 
                                          diameter=999,
-                                         color='Black',
-                                         finish_type='Some type',
                                          image=image,
                                          is_published=True)
         
-        product.categories.add(category)
+        product.categories.set([bottles])
+        product.color = color
+        product.finish_type = finish_type
 
     def test_index_page(self):
         page = self.client.get(reverse('home'))

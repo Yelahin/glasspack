@@ -987,3 +987,9 @@ input[type="range"]:active::-webkit-slider-thumb{
     flex-direction: column;
   }
 }
+
+@media (max-width: 1800px) {
+  .main-product-filter {
+    display: none;
+  }
+}
