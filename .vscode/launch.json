@@ -10,7 +10,7 @@
             "type": "debugpy",
             "request": "launch",
             "stopOnEntry": false,
-            "program": "${workspaceRoot}/GlassPack/manage.py",
+            "program": "${workspaceRoot}/manage.py",
             "args": [
                 "runserver",
                 "--no-color",
