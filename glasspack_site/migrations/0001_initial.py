@@ -127,9 +127,9 @@ class Migration(migrations.Migration):
                 ('image', models.ImageField(upload_to='products/')),
                 ('is_published', models.BooleanField()),
                 ('time_create', models.DateTimeField(auto_now_add=True)),
-                ('categories', models.ManyToManyField(to='GlassPack_site.category')),
-                ('color', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='GlassPack_site.color')),
-                ('finish_type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='GlassPack_site.finishtype')),
+                ('categories', models.ManyToManyField(to='glasspack_site.category')),
+                ('color', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='glasspack_site.color')),
+                ('finish_type', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.PROTECT, to='glasspack_site.finishtype')),
             ],
             options={
                 'verbose_name': '1. Products',

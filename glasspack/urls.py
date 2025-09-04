@@ -1,5 +1,5 @@
 """
-URL configuration for GlassPack project.
+URL configuration for glasspack project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -19,8 +19,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
-from GlassPack_site.models import Product
-from GlassPack_site.sitemaps import ProductsSitemap, StaticViewSitemap
+from glasspack_site.models import Product
+from glasspack_site.sitemaps import ProductsSitemap, StaticViewSitemap
 
 
 sitemaps = {
@@ -31,7 +31,7 @@ sitemaps = {
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('GlassPack_site.urls')),
+    path('', include('glasspack_site.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap')
 ]
