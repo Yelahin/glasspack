@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('GlassPack_site', '0001_initial'),
+        ('glasspack_site', '0001_initial'),
     ]
 
     operations = [

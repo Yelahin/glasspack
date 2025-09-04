@@ -2,25 +2,34 @@ from django.db.models import Count, Max, Min
 from django.http import  HttpResponseNotFound
 from django.urls import reverse_lazy
 from .utils import DataMixin
-from .models import  FooterInfo, ContactInfo, AboutInfo, IndexContent, Product, Category
+from .models import  AboutInfo, IndexContent, Product, Category
 from .forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 
 class IndexPage(DataMixin, TemplateView):
-    template_name = "GlassPack_site/index.html"
+    template_name = "glasspack_site/index.html"
     title = 'Home'
-    page_content = IndexContent.objects.first()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_content'] = IndexContent.objects.first() or ''
+        return self.get_mixin_content(context)
 
 
 class AboutUsPage(DataMixin, TemplateView):
-    template_name = "GlassPack_site/about.html"
+    template_name = "glasspack_site/about.html"
     title = "About us"
-    page_content = AboutInfo.objects.first()
+    
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['page_content'] = AboutInfo.objects.first() or ''
+        return self.get_mixin_content(context)
 
 
 class ProductPage(DataMixin, ListView):
-    template_name = "GlassPack_site/products.html"
+    template_name = "glasspack_site/products.html"
     context_object_name = 'selected_production'
     paginate_by = 6
 
@@ -71,11 +80,11 @@ class ProductPage(DataMixin, ListView):
 
 class ContactUsPage(DataMixin, FormView):
     form_class = ContactUsForm
-    template_name = "GlassPack_site/contact.html"
+    template_name = "glasspack_site/contact.html"
     success_url = reverse_lazy('contact')
     title = "Contact us"
-    extra_context = {'contact_info': FooterInfo.objects.first(),
-                     'contact_subtitle': ContactInfo.objects.first()}
+    #extra_context = {'contact_info': FooterInfo.objects.first(),
+                     #'contact_subtitle': ContactInfo.objects.first()}
 
     def form_valid(self, form):
         form.save()
@@ -84,7 +93,7 @@ class ContactUsPage(DataMixin, FormView):
 
 class ShowProduct(DataMixin, DetailView):
     model = Product
-    template_name = "GlassPack_site/show_product.html"
+    template_name = "glasspack_site/show_product.html"
     context_object_name = 'product'
     slug_url_kwarg = 'slug'
     

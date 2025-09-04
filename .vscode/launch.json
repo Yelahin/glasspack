@@ -6,7 +6,7 @@
     "configurations": [
         
         {
-            "name": "GlassPack",
+            "name": "glasspack",
             "type": "debugpy",
             "request": "launch",
             "stopOnEntry": false,
