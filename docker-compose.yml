@@ -9,6 +9,8 @@ services:
       - "8080:8000"
     volumes:
       - ./:/var/www/glasspack
+    env_file:
+      - .env
     networks:
       - dbnet
 
@@ -16,11 +18,13 @@ services:
     image: postgres
     container_name: data_base
     environment:
-      POSTGRES_USER: illia
-      POSTGRES_PASSWORD:***REMOVED***
-      POSTGRES_DB: glasspack_db
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
+    env_file:
+      - .env
     networks:
       - dbnet
 

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+from os import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,12 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-***REMOVED***
+SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["127.0.0.1", 'localhost', 'glasspack', 'mynginx']
+ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -92,21 +93,13 @@ WSGI_APPLICATION = 'glasspack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'glasspack_db',
-        'USER': 'illia',
-        'PASSWORD': '1206712067maMA',
-        'HOST': 'postgres_db',
-        ***REMOVED***
+        'NAME': environ.get("DATABASE_NAME"),
+        'USER': environ.get("DATABASE_USER"),
+        'PASSWORD': environ.get("DATABASE_PASSWORD"),
+        'HOST': environ.get("DATABASE_HOST"),
+        'PORT': environ.get("DATABASE_PORT"),
     }
 }
-
-
-#CACHES = {
-#    "default": {
-#        "BACKEND": "django.core.cache.backends.redis.RedisCache",
-#        "LOCATION": "redis://127.0.0.1:6379"
-#    }
-#}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
