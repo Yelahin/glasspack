@@ -1,0 +1,46 @@
+services:
+  glasspack:
+    build: .
+    image: glasspack-back
+    container_name: glasspack
+    depends_on:
+      - postgres_db
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./:/var/www/glasspack
+    networks:
+      - dbnet
+
+  postgres_db:
+    image: postgres
+    container_name: data_base
+    environment:
+      POSTGRES_USER: illia
+      POSTGRES_PASSWORD:***REMOVED***
+      POSTGRES_DB: glasspack_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dbnet
+
+  web-server:
+    image: nginx:stable
+    container_name: mynginx
+    networks:
+      - dbnet
+    ports:
+      - "8088:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/var/www/glasspack/static
+      - ./media:/var/www/glasspack/media
+    depends_on:
+      - glasspack
+
+volumes:
+  pgdata:
+
+networks:
+  dbnet:
+    driver: bridge

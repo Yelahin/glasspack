@@ -1,4 +1,6 @@
 from django import template
+from django.db.models import Max, Min
+from glasspack_site.models import Product
 
 register = template.Library()
 
@@ -14,6 +16,7 @@ def type_select(value, arg):
     if len(result) < 1:
         result = ['bottles', 'jars']
     return ','.join(result)
+
 
 
 @register.filter
