@@ -11,7 +11,7 @@ class VolumeFilter(admin.SimpleListFilter):
     parameter_name = 'container_volume'
 
     def lookups(self, request, model_admin):
-        return [('0-249', '0-249 ml'),
+        volume_choices =  [('0-249', '0-249 ml'),
                 ('250-349', '250-349 ml'),
                 ('350-499', '350-499 ml'),
                 ('500-749', '500-749 ml'),
@@ -20,6 +20,8 @@ class VolumeFilter(admin.SimpleListFilter):
                 ('1250-1499', '1250-1499 ml'),
                 ('1500-1999', '1500-1999 ml'),
                 ('2000+', '2000ml+')]
+        
+        return volume_choices
 
     def queryset(self, request, queryset):
         value = self.value()

@@ -2,15 +2,14 @@
 {% load static %}
 {% load glasspack_site_tags %}
 {% block content %}
-{% with s1=request.GET.slider_1|default:min_volume s2=request.GET.slider_2|default:max_volume %}
 {% with finish_str=selected_finish_types|join:"&finish_types=" color_str=selected_colors|join:"&colors=" %}
 <div class="product-page">
     <h1>Products</h1>
     <div class="bottles-jars-filter">
         {% with finish_param=selected_finish_types|finish_param:finish_str color_param=selected_colors|color_param:color_str %}
-            <a href="?categories={{ selected_types|type_select:'bottles' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}{{ color_param }}"
+            <a href="?categories={{ selected_types|type_select:'bottles' }}{{ finish_param }}{{ color_param }}"
             class="{% if 'bottles' in selected_types %}active{% endif %}">BOTTLES</a>
-            <a href="?categories={{ selected_types|type_select:'jars' }}&slider_1={{ s1 }}&slider_2={{ s2 }}{{ finish_param }}{{ color_param }}"
+            <a href="?categories={{ selected_types|type_select:'jars' }}{{ finish_param }}{{ color_param }}"
             class="{% if 'jars' in selected_types %}active{% endif %}">JARS</a>
         {% endwith %}
     </div>
@@ -33,16 +32,10 @@
         </div>
         <div class="main-product-filter">
                 <h3>Product Filter</h3>
-                <h4 id="volume">Volume</h4>
                 <div class="container">
                     <form id="filter-form" action="" method="get">
                         <div class="filters-wrapper">
-                            <div class="slider-track"></div>
                             <input type="hidden" name="categories" value="{{ selected_types|join:',' }}">
-                            <input type="range" id="slider-1" name="slider_1" min="{{ min_volume }}" max="{{ max_volume }}" value="{{ request.GET.slider_1|default:min_volume }}" step="50" oninput="slideOne()" onchange="submitForm()">
-                            <input type="range" id="slider-2" name="slider_2" min="{{ min_volume }}" max="{{ max_volume }}" value="{{ request.GET.slider_2|default:max_volume }}" step="50" oninput="slideTwo()" onchange="submitForm()">
-                            <span id="tooltip-1">{{ request.GET.slider_1|default:min_volume }}</span>
-                            <span id="tooltip-2">{{ request.GET.slider_2|default:max_volume }}</span>
                         </div>
                         <div class="finish-filter">
                             <h4>Type of finish</h4>
@@ -85,6 +78,5 @@
     </div>
 </div>
 {% endwith %}
-{% endwith %}
-<script src="{% static 'glasspack/JavaScript/slider.js' %}"></script>
+<script src="{% static 'glasspack/JavaScript/filter.js' %}"></script>
 {% endblock%}
