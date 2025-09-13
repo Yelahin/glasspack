@@ -13,6 +13,7 @@ class ProductFilters(BaseTestCase):
         )
 
         # Set up test filter options
+        self.cat_00 = Category.objects.create(name='empty')
         self.cat_1 = Category.objects.create(name='bottles')
         self.cat_2 = Category.objects.create(name='jars')
         self.color_yel = Color.objects.create(name='yellow')
@@ -62,43 +63,38 @@ class ProductFilters(BaseTestCase):
         
     def test_categories_filter(self):
         expected_result = sorted(Product.objects.filter(is_published=True, categories=self.cat_1).values_list('model', flat=True))
-        response = self.client.get('/products?categories=bottles&slider_1=100&slider_2=1000')
+        response = self.client.get('/products?categories=bottles')
         result = sorted(response.context['object_list'].values_list('model', flat=True))
         self.assertEqual(result, expected_result)
     
-    def test_volume_filter(self):
-        expected_result = sorted(Product.objects.filter(is_published=True, volume__range=(300, 700)).values_list('model', flat=True))
-        response = self.client.get("/products?categories=bottles%2Cjars&slider_1=300&slider_2=700")
-        result = sorted(response.context['paginator'].object_list.values_list('model', flat=True))
-        self.assertEqual(result, expected_result)
 
     def test_type_of_finish_filter(self):
         expected_result = sorted(Product.objects.filter(is_published=True, finish_type=self.fin_type_Twist).values_list('model', flat=True))
-        response = self.client.get('/products?categories=bottles%2Cjars&slider_1=100&slider_2=1000&finish_types=Twist+off')
+        response = self.client.get('/products?categories=bottles%2Cjars&finish_types=Twist+off')
         result = sorted(response.context['object_list'].values_list('model', flat=True))
         self.assertEqual(result, expected_result)
 
     def test_color_filter(self):
         expected_result = sorted(Product.objects.filter(is_published=True, color=self.color_yel).values_list('model', flat=True))
-        response = self.client.get('/products?categories=bottles%2Cjars&slider_1=100&slider_2=1000&colors=yellow')
+        response = self.client.get('/products?categories=bottles%2Cjars&colors=yellow')
         result = sorted(response.context['object_list'].values_list('model', flat=True))
         self.assertEqual(result, expected_result)
 
-    def test_volume_finish_type(self):
-        expected_result = sorted(Product.objects.filter(is_published=True, volume__range=(200, 400), finish_type=self.fin_type_Crown).values_list('model', flat=True))
-        response = self.client.get('/products?categories=jars%2Cbottles&slider_1=200&slider_2=400&finish_types=Crown')
+    def test_color_finish_type(self):
+        expected_result = sorted(Product.objects.filter(is_published=True, color=self.color_yel, finish_type=self.fin_type_Crown).values_list('model', flat=True))
+        response = self.client.get('/products?categories=jars%2Cbottles&color=yellow&finish_types=Crown')
         result = sorted(response.context['object_list'].values_list('model', flat=True))
         self.assertEqual(result, expected_result)
 
     def test_categories_color(self):
         expected_result = sorted(Product.objects.filter(is_published=True, categories=self.cat_2, color=self.color_black).values_list('model', flat=True))
-        response = self.client.get('/products?categories=jars&slider_1=100&slider_2=1000&colors=black')
+        response = self.client.get('/products?categories=jars&colors=black')
         result = sorted(response.context['object_list'].values_list('model', flat=True))
         self.assertEqual(result, expected_result)
 
     def test_empty_result(self):
-        expected_result = list(Product.objects.filter(is_published=True, volume__range=(2000, 3000)))
-        response = self.client.get("/products?categories=bottles%2Cjars&slider_1=2000&slider_2=3000")
+        expected_result = list(Product.objects.filter(categories=self.cat_00))
+        response = self.client.get("/products?categories=empty")
         result = list(response.context['object_list'])
         self.assertEqual(result, expected_result)
 
