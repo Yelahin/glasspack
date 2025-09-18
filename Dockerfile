@@ -1,17 +1,15 @@
-FROM python:3.13.3
+FROM python:3.13-slim
 
 #and new user and usergroup
-RUN groupadd -r illia && useradd -r -g illia illia
-
-#upgrade pip
-RUN pip install --upgrade pip
+RUN apt-get update && apt-get install -y libpq-dev gcc passwd \
+    && groupadd -r illia && useradd -r -g illia illia
 
 #manage workdir
 WORKDIR /var/www/glasspack
 
 #copy requriments.txt
 COPY requriments.txt .
-RUN pip install -r requriments.txt
+RUN pip install --upgrade pip && pip install -r requriments.txt
 
 #copy project files
 COPY . .
