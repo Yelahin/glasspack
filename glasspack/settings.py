@@ -35,8 +35,7 @@ INTERNAL_IPS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8088",
-    "http://127.0.0.1:8088",
-    "http://89.117.51.217"
+    "http://127.0.0.1:8088"
 ]
 
 # Application definition
