@@ -237,7 +237,7 @@ li,
   width: 250px;
   height: 75px;
   margin-right: 1vw;
-  font-size: 1.35rem;
+  font-size: 16px;
   font-weight: 600;
   box-shadow: none;
   border: none;
@@ -318,7 +318,9 @@ li,
 .jars {
   background-color: rgb(1, 1, 1, 0.705);
   height: 400px;
-  width: 600px;
+  width: 50vw;
+  max-width: 600px;
+  min-width: 335px;
   transition: 0.3s ease;
 }
 
@@ -554,7 +556,7 @@ li,
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  font-size: 22.5px;
   font-weight: 500;
   width: 100%;
   height: 50px;
@@ -638,7 +640,7 @@ li,
 .bottles-jars-filter a {
   margin: 50px;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 22.5px;
   font-weight: 600;
   color:#243e7f
 }
@@ -920,8 +922,36 @@ li,
   }
 }
 
+@media (max-width: 630px) {
+  .production-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .open-catalogue-but,
+  .about-company-but {
+      line-height: 65px;
+      width: 200px;
+      height: 65px;
+      font-size: 14px;
+      font-weight: 600;
+
+  }
+}
+
 @media (max-width: 576px) {
   html {
     font-size: 8px;
+  }
+
+  .open-catalogue-but,
+  .about-company-but {
+      line-height: 55px;
+      width: 175px;
+      height: 55px;
+      font-size: 12px;
+      font-weight: 600;
+
   }
 }
