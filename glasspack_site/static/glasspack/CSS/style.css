@@ -371,7 +371,7 @@ li,
   align-items: center;
   justify-content: center;
   margin: 50px 50px 0px 50px;
-  height: calc(100vh - 280px);
+  height: calc(100vh - 230px);
 }
 
 .about-text h2 {
