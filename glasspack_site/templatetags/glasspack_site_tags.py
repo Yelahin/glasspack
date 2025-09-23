@@ -1,6 +1,4 @@
 from django import template
-from django.db.models import Max, Min
-from glasspack_site.models import Product
 
 register = template.Library()
 

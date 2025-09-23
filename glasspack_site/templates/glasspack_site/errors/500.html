@@ -1,0 +1,9 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div class="error-page">
+    <h1>Something went wrong</h1>
+    <p>Oops! Something went wrong on our end. Please try again later.</p>
+    <a href="{% url 'home' %}">Home</a>
+</div>
+{% endblock%}

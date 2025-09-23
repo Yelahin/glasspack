@@ -17,4 +17,5 @@ COPY . .
 #manage user
 USER illia
 
-CMD ["gunicorn", "glasspack.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["gunicorn", "glasspack.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

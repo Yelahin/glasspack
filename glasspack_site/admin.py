@@ -1,4 +1,3 @@
-from cProfile import label
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from glasspack_site.models import Color, FinishType, Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo, UserMessage

@@ -1,0 +1,9 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div class="error-page">
+  <h1>Page not found</h1>
+  <p>We can't seem to find the page you are looking for.</p>
+  <a href="{% url 'home' %}">Home</a>
+</div>
+{% endblock%}

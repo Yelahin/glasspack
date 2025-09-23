@@ -1,0 +1,10 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div class="error-page">
+    <h1>Bad request</h1>
+    <p>Oops! Something went wrong with your request.</p>
+    <p>It seems the server cannot understand what you sent. Please check the URL or try again.</p>
+    <a href="{% url 'home' %}">Home</a>
+</div>
+{% endblock%}
