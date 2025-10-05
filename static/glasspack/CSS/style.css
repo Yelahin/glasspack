@@ -588,7 +588,7 @@ li,
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 429px;
+  height: calc(100vh - 700px);
   margin-top: 50px;
   margin-bottom: 100px;
 }
@@ -748,7 +748,7 @@ li,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-    height: calc(100vh - 730px);
+  height: calc(100vh - 730px);
 }
 
 .error-page h1 {

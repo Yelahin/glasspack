@@ -41,8 +41,8 @@
                             <h4>Type of finish</h4>
                             {% for finish in filtered_finish_products %}
                                 <div>
-                                    <input type="checkbox" id="finish_type_{{ forloop.counter }}" name="finish_types" value="{{ finish.finish_type__name }}" {% if selected_finish_types and finish.finish_type__name in selected_finish_types%}checked{% endif %}>
-                                    <label for="finish_type_{{ forloop.counter}}">{{ finish.finish_type__name }} ({{ finish.count }})</label>
+                                    <input type="checkbox" id="finish_type_{{ forloop.counter }}" name="finish_types" value="{{ finish.name }}" {% if selected_finish_types and finish.name in selected_finish_types%}checked{% endif %}>
+                                    <label for="finish_type_{{ forloop.counter}}">{{ finish.name }} ({{ finish.count }})</label>
                                 </div>
                             {% endfor%}
                         </div>
@@ -50,8 +50,8 @@
                             <h4>Color</h4>
                             {% for col in filtered_color_products %}
                                 <div>
-                                    <input type="checkbox" id="color_{{ forloop.counter }}" name="colors" value="{{ col.color__name }}" {% if selected_colors and col.color__name in selected_colors %}checked{% endif %}>
-                                    <label for="color_{{ forloop.counter}}">{{ col.color__name }} ({{ col.count }})</label>
+                                    <input type="checkbox" id="color_{{ forloop.counter }}" name="colors" value="{{ col.name }}" {% if selected_colors and col.name in selected_colors %}checked{% endif %}>
+                                    <label for="color_{{ forloop.counter}}">{{ col.name }} ({{ col.count }})</label>
                                 </div>
                             {% endfor%}
                         </div>
