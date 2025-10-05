@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class GlasspackSiteConfig(AppConfig):
+class GlasspackApiConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'glasspack_site'
+    name = 'glasspack_api'

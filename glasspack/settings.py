@@ -25,18 +25,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8088",
-    "http://127.0.0.1:8088",
-    "http://89.117.51.217:8088",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+   ***REMOVED***,
 ]
 
 # Application definition
@@ -50,7 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django.contrib.sitemaps',
-    'glasspack_site.apps.glasspackSiteConfig',
+    'rest_framework',
+    'glasspack_site.apps.GlasspackSiteConfig',
+    'glasspack_api.apps.GlasspackApiConfig',
+    'djoser',
     'debug_toolbar',
     'captcha',
 ]
@@ -102,6 +105,19 @@ DATABASES = {
     }
 }
 
+#Django REST framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -136,13 +152,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
-MEDIA_ROOT = BASE_DIR / 'media'
-
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
