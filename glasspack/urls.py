@@ -20,8 +20,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from glasspack_site.sitemaps import ProductsSitemap, StaticViewSitemap
-from glasspack_api.views import ProductViewSet, UserMessageView
-from rest_framework.routers import DefaultRouter
 
 
 sitemaps = {
@@ -35,19 +33,13 @@ handler404 = 'glasspack_site.views.custom_404'
 handler500 = 'glasspack_site.views.custom_500'
 
 
-product_list = ProductViewSet.as_view({'get': 'list'})
-product_details = ProductViewSet.as_view({'get': 'retrieve'})
-
-router = DefaultRouter()
-router.register(r'products', ProductViewSet)
-router.register(r'contact', UserMessageView)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('glasspack_site.urls')),
+    path('', include('glasspack_users.urls', namespace="glasspack_users")),
+    path('api/v1/', include('glasspack_api.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
-    path('api/v1/', include(router.urls)),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]

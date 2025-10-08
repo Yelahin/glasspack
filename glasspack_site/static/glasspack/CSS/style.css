@@ -955,6 +955,45 @@ li,
   }
 }
 
+
+/**-----------------login.html*-----------------*/
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 180px);
+}
+
+.login-form {
+  display: flex;
+  height: 25vh;
+  width: 25vw;
+  justify-content: center;
+  align-items: center ;
+}
+
+.form-input,
+.login-button {
+  height: 70px;
+  width: 600px;
+  border-radius: 5px;
+  border-style: solid;
+  border: none;
+  box-sizing: border-box;
+  font-size: 1.5rem;
+}
+
+.form-input {
+  background-color:#e7e7e7;
+  padding: 20px;
+}
+
+.login-button {
+  background-color:#15223f;
+  color: white;
+}
+
 @media (max-width: 768px) {
   html {
     font-size: 10px;

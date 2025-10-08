@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 INTERNAL_IPS = [
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'glasspack_site.apps.GlasspackSiteConfig',
     'glasspack_api.apps.GlasspackApiConfig',
+    'glasspack_users.apps.GlasspackUsersConfig',
     'djoser',
     'debug_toolbar',
     'captcha',
@@ -69,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'glasspack.urls'
@@ -81,6 +83,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'glasspack_site.context_processors.footer_context',
+                'glasspack_site.context_processors.get_pages_menu',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -104,6 +107,16 @@ DATABASES = {
         'PORT': environ.get("DATABASE_PORT"),
     }
 }
+
+
+#Add compression for staticfiles
+
+STORAGE = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    }
+}
+
 
 #Django REST framework
 
@@ -154,11 +167,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
+MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

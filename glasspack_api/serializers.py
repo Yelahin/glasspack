@@ -25,4 +25,3 @@ class UserMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserMessage
         fields = ['full_name', 'email', 'comment']
-
