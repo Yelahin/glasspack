@@ -1,12 +1,11 @@
 from django.shortcuts import  render
 from django.urls import reverse_lazy
-from .utils import DataMixin, ProductPageContext
+from .utils import  ProductPageContext
 from .models import  AboutInfo, IndexContent, Product, FooterInfo, ContactInfo
 from .forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
-
-class IndexPage(DataMixin, TemplateView):
+class IndexPage(TemplateView):
     template_name = "glasspack_site/index.html"
     title = 'Home'
     def get_context_data(self, **kwargs):
@@ -15,7 +14,7 @@ class IndexPage(DataMixin, TemplateView):
         return context
 
 
-class AboutUsPage(DataMixin, TemplateView):
+class AboutUsPage(TemplateView):
     template_name = "glasspack_site/about.html"
     title = "About us"
     
@@ -26,7 +25,7 @@ class AboutUsPage(DataMixin, TemplateView):
         return context
 
 
-class ProductPage(DataMixin, ListView):
+class ProductPage(ListView):
     template_name = "glasspack_site/products.html"
     context_object_name = 'selected_production'
     paginate_by = 6
@@ -44,10 +43,10 @@ class ProductPage(DataMixin, ListView):
         context['selected_colors'] = self.data['selected_colors']
         context['querystring'] = self.data['querydict'].urlencode()
 
-        return self.get_mixin_content(context, title='Products')
+        return context
     
 
-class ContactUsPage(DataMixin, FormView):
+class ContactUsPage(FormView):
     form_class = ContactUsForm
     template_name = "glasspack_site/contact.html"
     success_url = reverse_lazy('contact')
@@ -64,7 +63,7 @@ class ContactUsPage(DataMixin, FormView):
         return super().form_valid(form)
 
 
-class ShowProduct(DataMixin, DetailView):
+class ShowProduct(DetailView):
     model = Product
     template_name = "glasspack_site/show_product.html"
     context_object_name = 'product'
@@ -72,21 +71,13 @@ class ShowProduct(DataMixin, DetailView):
 
 
 def custom_400(request, exception):
-    mixin = DataMixin()
-    context = mixin.get_mixin_content({})
-    return render(request, 'glasspack_site/errors/400.html', context, status=400)
+    return render(request, 'glasspack_site/errors/400.html', status=400)
 
 def custom_403(request, exception):
-    mixin = DataMixin()
-    context = mixin.get_mixin_content({})
-    return render(request, 'glasspack_site/errors/403.html', context, status=403)
+    return render(request, 'glasspack_site/errors/403.html', status=403)
 
 def custom_404(request, exception):
-    mixin = DataMixin()
-    context = mixin.get_mixin_content({})
-    return render(request, 'glasspack_site/errors/404.html', context, status=404)
+    return render(request, 'glasspack_site/errors/404.html', status=404)
 
 def custom_500(request):
-    mixin = DataMixin()
-    context = mixin.get_mixin_content({})
-    return render(request, 'glasspack_site/errors/500.html', context, status=500)
+    return render(request, 'glasspack_site/errors/500.html', status=500)

@@ -23,3 +23,4 @@ wheel==0.45.1
 pillow==11.3.0
 djangorestframework==3.16.1
 djoser==2.3.3
+whitenoise==6.11.0
