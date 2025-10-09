@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = environ.get("DJANGO_ALLOWED_HOSTS", "*").split(" ")
 INTERNAL_IPS = [
@@ -181,3 +181,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Captcha settings
 
 CAPTCHA_IMAGE_SIZE = 100, 50
+
+#Login/Logout Settings
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"

@@ -61,7 +61,7 @@ a.active {
 
 .menu div {
   display: flex;
-  width: 1250px;
+  width: 1500px;
   align-items: center;
   margin-right: auto;
   margin-left: auto;
@@ -71,6 +71,15 @@ a.active {
 .menu img {
   margin-left: 50px;
   width: 225px;
+}
+
+.register {
+  position: absolute;
+  right: 50px;
+}
+
+.register a {
+  margin: 0;
 }
 
 #toggle,
