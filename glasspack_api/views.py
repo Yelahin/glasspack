@@ -5,7 +5,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from .serializers import UserMessageSerializer, ProductSerializer, SelectedFiltersSerializer
 from .permissions import IsAdminOrReadOnly
-from glasspack_site.models import UserMessage, Product
+from glasspack_site.models import Product
+from glasspack_users.models import UserMessage
 from glasspack_site.utils import ProductPageContext
 
 

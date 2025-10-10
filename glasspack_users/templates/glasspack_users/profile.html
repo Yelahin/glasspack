@@ -1,0 +1,17 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div id="profile-page">
+    <div id="profile-block">
+        <h1 id="profile-title">Profile</h1>
+        <div id="profile-form-box">
+            <form action="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+            </form>
+        </div>
+    </div>
+    <hr>
+    <a id="ps-change-button" href="{% url 'glasspack_users:password_change'%}">Change password</a>
+</div>
+{% endblock %}

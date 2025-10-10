@@ -10,11 +10,11 @@
 </ul>
 <ul id="menu-login">
     {% if user.is_authenticated %}
-        <li class="register"><span id="username">{{ user.username }} </span><span id="bar">|</span><form class="logout-form" method="post" action="{% url 'glasspack_users:logout' %}">
+        <li class="register"><a href="{% url 'glasspack_users:profile'%}" id="username">{{ user.username }} </a><span id="bar">|</span><form class="logout-form" method="post" action="{% url 'glasspack_users:logout' %}">
             {% csrf_token %}
             <button id="logout-but" type="submit">Logout
         </form></li>
     {% else %}
-        <li class="register"><a href="#">Sign up</a> | <a href="{% url 'glasspack_users:login'%}">Login</a></li>
+        <li class="register"><a href="{% url 'glasspack_users:sign_up'%}">Sign up</a> | <a href="{% url 'glasspack_users:login'%}">Login</a></li>
     {% endif%}
 </ul>

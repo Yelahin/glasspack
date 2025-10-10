@@ -1,4 +1,3 @@
-from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
@@ -64,7 +63,7 @@ class IndexContent(models.Model):
         return self.title
 
 
-#Models for production
+#Models for products
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -128,17 +127,3 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
 
-#Contact Form
-
-class UserMessage(models.Model):
-    full_name = models.CharField(max_length=50)
-    email = models.EmailField(max_length=255)
-    comment = models.TextField(max_length=1000, validators=[MinLengthValidator(10)])
-    date = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = "9. User messages"
-        verbose_name_plural = "9. User messages"
-
-    def __str__(self):
-        return f"{self.full_name} {self.email} {self.date}"

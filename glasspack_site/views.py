@@ -1,13 +1,13 @@
 from django.shortcuts import  render
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import  ProductPageContext
 from .models import  AboutInfo, IndexContent, Product, FooterInfo, ContactInfo
-from .forms import ContactUsForm
+from glasspack_users.forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 
 class IndexPage(TemplateView):
     template_name = "glasspack_site/index.html"
-    title = 'Home'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['page_content'] = IndexContent.objects.first() or ''
@@ -16,7 +16,6 @@ class IndexPage(TemplateView):
 
 class AboutUsPage(TemplateView):
     template_name = "glasspack_site/about.html"
-    title = "About us"
     
 
     def get_context_data(self, **kwargs):
@@ -46,11 +45,10 @@ class ProductPage(ListView):
         return context
     
 
-class ContactUsPage(FormView):
+class ContactUsPage(LoginRequiredMixin, FormView):
     form_class = ContactUsForm
     template_name = "glasspack_site/contact.html"
     success_url = reverse_lazy('contact')
-    title = "Contact us"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -59,7 +57,9 @@ class ContactUsPage(FormView):
         return context
 
     def form_valid(self, form):
-        form.save()
+        msg = form.save(commit=False)
+        msg.user = self.request.user
+        msg.save()
         return super().form_valid(form)
 
 

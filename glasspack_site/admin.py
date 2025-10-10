@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from glasspack_site.models import Color, FinishType, Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo, UserMessage
+from glasspack_site.models import Color, FinishType, Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo
+from glasspack_users.models import UserMessage
 # Register your models here.
 
 #Filter classes
