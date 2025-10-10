@@ -1,0 +1,12 @@
+{% extends 'basic.html' %}
+{% load static %}
+{% block content %}
+<div class="register-done">
+    <div class="register-box">
+        <p class="congrats-register">Congratulations! You've just registered</p>
+        <p class="congrats-register">on the GlassPack website.</p>
+        <p class="congrats-register"> Click the button below to go to the login page.</p>
+        <a class="go-home" href="{% url 'glasspack_users:login' %}">Login</a>
+    </div>
+</div>
+{% endblock %}

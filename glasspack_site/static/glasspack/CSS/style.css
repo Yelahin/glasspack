@@ -45,6 +45,16 @@ body {
   font-size: 1.35rem;
 }
 
+#username:hover {
+  color:#656565
+}
+
+#ps-change-button {
+  color: #252525;
+  font-weight: 500;
+  transition-duration: 0.1s;
+}
+
 .menu a {
   text-decoration: none;
   font-weight: 550;
@@ -73,9 +83,110 @@ body {
   display: inline-block;
 }
 
+.register-done,
+#ps-change-done {
+  display: flex;
+  height: calc(100vh - 180px);
+  align-items: center;
+  justify-content: center;
+}
+
+.register-box,
+#ps-change-box {
+  display: flex;
+  flex-direction: column;
+  height: 30vh;
+  width: 40vw;
+  background-color: #4c4c4c;
+  border-radius: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.go-home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vh;
+  width: 10vw;
+  font-size: 1.25rem;
+  font-weight: 500;
+  border-radius: 1rem;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  background-color: #243e7f;
+  margin-top: 4vh;
+}
+
+.congrats-register,
+#congrats-ps-change {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 0;
+  margin-top: 5px;
+  margin-bottom: 0;
+  font-weight: 500;
+  color: white;
+  font-size: 1.5rem;
+}
+
+#profile-page,
+#ps-change-page {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 180px);
+  align-items: center;
+  justify-content: center;
+}
+
+#profile-block,
+#ps-change-block {
+  display: flex;
+  flex-direction: column;
+  background-color: #404040;
+  padding: 1vh 5vw 5vh 5vw;
+  border-radius: 2rem;
+  align-items: center;
+  justify-self: center;
+}
+
+#profile-form-box,
+#ps-change-form-box {
+  background-color: #15223f;
+  padding: 3vh 3vw 3vh 3vw;
+  border-radius: 2rem;
+}
+
+#ps-change-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#profile-title,
+#ps-change-title {
+  font-size: 2.25rem;
+  color: white;
+}
+
+#ps-change-button-sub {
+  margin: 25px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  background-color: #404040;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+}
+
 .menu a:hover,
 a.active,
-#logout-but:hover {
+#logout-but:hover,
+.go-home:hover,
+#ps-change-button:hover,
+#ps-change-button-sub:hover {
   color: #dc9003;
   transition: all 0.1s linear;
 }

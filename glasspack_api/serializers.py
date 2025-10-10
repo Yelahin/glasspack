@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from glasspack_site.models import Product, UserMessage
+from glasspack_site.models import Product
+from glasspack_users.models import UserMessage
 
 
 class ProductSerializer(serializers.ModelSerializer):

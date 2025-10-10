@@ -14,6 +14,8 @@ import os
 from os import environ
 from pathlib import Path
 
+from django.conf.global_settings import AUTHENTICATION_BACKENDS
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -186,3 +188,11 @@ CAPTCHA_IMAGE_SIZE = 100, 50
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+LOGIN_URL = "glasspack_users:login"
+
+#Auhentication backend
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    'glasspack_users.authentication.EmailAuthBackend'
+]
