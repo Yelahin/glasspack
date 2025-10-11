@@ -14,7 +14,7 @@ import os
 from os import environ
 from pathlib import Path
 
-from django.conf.global_settings import AUTHENTICATION_BACKENDS
+from django.conf.global_settings import AUTHENTICATION_BACKENDS, DEFAULT_FROM_EMAIL, EMAIL_BACKEND, EMAIL_HOST, EMAIL_HOST_PASSWORD, EMAIL_HOST_USER, SERVER_EMAIL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -190,9 +190,21 @@ LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_URL = "glasspack_users:login"
 
-#Auhentication backend
+#Django backends
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     'glasspack_users.authentication.EmailAuthBackend'
 ]
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_PASSWORD =***REMOVED***
+EMAIL_HOST_USER =***REMOVED***
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER

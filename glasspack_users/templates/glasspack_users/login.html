@@ -1,7 +1,7 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="login-page">
+<div class="margin-page">
     <div class="login-form">
         <form method="post">
             {% csrf_token%}
@@ -9,6 +9,7 @@
             {{ form.as_p }}
             <button type="submit" class="login-button">Enter</button>
         </form>
+        <a id="ps-reset-button" href="{% url 'glasspack_users:password_reset' %}">Forgot your password?</a>
     </div>
 </div>
 {% endblock %}
