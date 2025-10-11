@@ -40,6 +40,8 @@ class ProductModelViewSet(viewsets.ModelViewSet):
         serializer = SelectedFiltersSerializer(instance=instance)
         return Response(serializer.data)
     
+    
 class UserMessageView(generics.CreateAPIView):
     queryset = UserMessage.objects.all()
     serializer_class = UserMessageSerializer
+

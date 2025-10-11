@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from .models import UserMessage
 from captcha.fields import CaptchaField, CaptchaTextInput
 
@@ -44,6 +44,15 @@ class UserPasswordChangeForm(PasswordChangeForm):
     old_password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter your old password'}))
     new_password1 =  forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter new password'}))
     new_password2 =  forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Confirm your new password'}))
+
+
+class UserPasswordResetForm(PasswordResetForm):
+    email = forms.CharField(label='', widget=forms.EmailInput(attrs={'class': 'form-input', 'placeholder': 'Enter your email'}))
+
+
+class UserSetPasswordForm(SetPasswordForm):
+    new_password1 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter your new password'}))
+    new_password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Confirm your new password'}))
 
 
 class ContactUsForm(forms.ModelForm):
