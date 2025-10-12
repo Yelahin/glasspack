@@ -10,6 +10,8 @@
             <button type="submit" class="login-button">Enter</button>
         </form>
         <a id="ps-reset-button" href="{% url 'glasspack_users:password_reset' %}">Forgot your password?</a>
+
+        <a id="login-with-google" href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
     </div>
 </div>
 {% endblock %}

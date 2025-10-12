@@ -175,6 +175,13 @@ body {
   color: white;
 }
 
+#login-with-google {
+  color: #153f1b;
+  text-decoration: none;
+  margin-top: 15px;
+  font-weight: 600;
+}
+
 #ps-change-button-sub {
   margin: 25px;
   padding: 1rem;
