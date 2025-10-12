@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from glasspack_site.models import Color, FinishType, Product, Category, FooterInfo, IndexContent, AboutInfo, ContactInfo
-from glasspack_users.models import UserMessage
 # Register your models here.
 
 #Filter classes
@@ -113,15 +112,5 @@ class AboutInfoAdmin(admin.ModelAdmin):
 class ContactInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'subtitle')
     list_display_links = ('id', 'subtitle')
-
-#Forms
-
-@admin.register(UserMessage)
-class UserMessageAdmin(admin.ModelAdmin):
-    list_display = ['full_name', 'email', 'date']
-    list_display_links = ['full_name', 'email', 'date']
-    ordering = ['-date']
-    list_per_page = 20
-    search_fields = ['full_name', 'email']
 
     
