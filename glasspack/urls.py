@@ -40,6 +40,7 @@ urlpatterns = [
     path('api/v1/', include('glasspack_api.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+    path('', include('social_django.urls', namespace="social")),
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
