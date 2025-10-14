@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -48,12 +49,12 @@ class AboutInfo(models.Model):
     
 
 class IndexContent(models.Model):
-    title = models.CharField(max_length=250)
-    subtitle = models.CharField(max_length=250)
-    mission_intro = models.TextField(max_length=350)
-    mission_details = models.TextField(max_length=350)
+    title = models.CharField(max_length=255)
+    subtitle = models.CharField(max_length=255)
+    mission_intro = models.TextField(max_length=255)
+    mission_details = models.TextField(max_length=255)
     contact_text = models.CharField(max_length=150)
-    products_subtitle = models.TextField(max_length=500)
+    products_subtitle = models.TextField(max_length=255)
 
     class Meta:
         verbose_name = "6. Home page information"
@@ -109,12 +110,19 @@ class Product(models.Model):
     categories = models.ManyToManyField(Category)
     slug = models.SlugField(max_length=100, blank=True)
     image = models.ImageField(upload_to='products/', blank=True)
-    is_published = models.BooleanField()
+    is_published = models.BooleanField(default=True)
     time_create = models.DateTimeField(auto_now_add=True)
 
     class Meta: 
         verbose_name = "1. Products"
         verbose_name_plural = "1. Products"
+
+        constraints = [
+            models.CheckConstraint(condition=models.Q(volume__gte=0), name="volume_gte_0"),
+            models.CheckConstraint(condition=models.Q(height__gte=0), name="height_gte_0"),
+            models.CheckConstraint(condition=models.Q(weight__gte=0), name="weight_gte_0"),
+            models.CheckConstraint(condition=models.Q(diameter__gte=0), name="diameter_gte_0"),
+        ]
 
     def __str__(self):
         return self.model
