@@ -3,7 +3,9 @@
 {% block content %}
 <div class="product-show">
     <div class="prod-container">
-        <img src="{{ product.image.url}}" alt="{{ product.model }}" class="product-img">
+        {% if product.image %}
+            <img src="{{ product.image.url}}" alt="{{ product.model }}" class="product-img">
+        {% endif %}
     </div>
     <div class="product-info">
         <h1 class="prod-model">{{ product.model }}</h1>

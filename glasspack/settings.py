@@ -114,6 +114,10 @@ DATABASES = {
     }
 }
 
+#Pagination settings
+
+PRODUCT_PAGINATE_BY = 6
+
 #Add compression for staticfiles
 
 STORAGE = {
@@ -121,7 +125,6 @@ STORAGE = {
         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     }
 }
-
 
 #Django REST framework
 

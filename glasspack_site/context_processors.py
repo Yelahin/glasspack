@@ -1,8 +1,8 @@
-from .models import FooterInfo
+from .models import FooterContent
 from .utils import menu
 
 def footer_context(request):
-    footer = FooterInfo.objects.first()
+    footer = FooterContent.objects.first()
     return {'footer': footer}
 
 def get_pages_menu(request):
