@@ -11,10 +11,10 @@ sitemaps = {
     'static': StaticViewSitemap,
 }
 
-handler400 = 'glasspack_site.views.custom_400'
-handler403 = 'glasspack_site.views.custom_403'
-handler404 = 'glasspack_site.views.custom_404'
-handler500 = 'glasspack_site.views.custom_500'
+handler400 = 'glasspack_site.views.handler400'
+handler403 = 'glasspack_site.views.handler403'
+handler404 = 'glasspack_site.views.handler404'
+handler500 = 'glasspack_site.views.handler500'
 
 
 urlpatterns = [

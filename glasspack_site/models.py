@@ -1,13 +1,12 @@
 from django.db import models
 from django.utils.text import slugify
 from django.urls import reverse
-from django.core.exceptions import ValidationError
 
 # Create your models here.
 
 #Models for templates
 
-class FooterInfo(models.Model):
+class FooterContent(models.Model):
     company_name = models.CharField(max_length=50)
     company_info = models.TextField()
     address = models.CharField(max_length=100)
@@ -26,7 +25,7 @@ class FooterInfo(models.Model):
         return self.company_name
     
 
-class ContactInfo(models.Model):
+class ContactContent(models.Model):
     subtitle = models.TextField()
 
     class Meta:
@@ -37,7 +36,7 @@ class ContactInfo(models.Model):
         return self.subtitle
     
 
-class AboutInfo(models.Model):
+class AboutContent(models.Model):
     content = models.TextField()
 
     class Meta:

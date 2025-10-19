@@ -2,9 +2,10 @@ from django.shortcuts import  render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import  ProductPageContext
-from .models import  AboutInfo, IndexContent, Product, FooterInfo, ContactInfo
+from .models import  AboutContent, IndexContent, Product, FooterContent, ContactContent
 from glasspack_users.forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
+from glasspack import settings
 
 class IndexPage(TemplateView):
     template_name = "glasspack_site/index.html"
@@ -20,14 +21,14 @@ class AboutUsPage(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['page_content'] = AboutInfo.objects.first() or ''
+        context['page_content'] = AboutContent.objects.first() or ''
         return context
 
 
 class ProductPage(ListView):
     template_name = "glasspack_site/products.html"
     context_object_name = 'selected_production'
-    paginate_by = 6
+    paginate_by = settings.PRODUCT_PAGINATE_BY
 
     def get_queryset(self):
         self.data = ProductPageContext(self.request).get_all_data()
@@ -52,8 +53,8 @@ class ContactUsPage(LoginRequiredMixin, FormView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['contact_info'] = FooterInfo.objects.first() or ''
-        context['contact_subtitle'] = ContactInfo.objects.first()
+        context['contact_info'] = FooterContent.objects.first() or ''
+        context['contact_subtitle'] = ContactContent.objects.first()
         return context
 
     def form_valid(self, form):
@@ -70,14 +71,14 @@ class ShowProduct(DetailView):
     slug_url_kwarg = 'slug'
 
 
-def custom_400(request, exception):
+def handler400(request, exception):
     return render(request, 'glasspack_site/errors/400.html', status=400)
 
-def custom_403(request, exception):
+def handler403(request, exception):
     return render(request, 'glasspack_site/errors/403.html', status=403)
 
-def custom_404(request, exception):
+def handler404(request, exception):
     return render(request, 'glasspack_site/errors/404.html', status=404)
 
-def custom_500(request):
+def handler500(request):
     return render(request, 'glasspack_site/errors/500.html', status=500)
