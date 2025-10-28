@@ -11,8 +11,7 @@
             </form>
         </div>
     </div>
-    <hr>
-    {% if not perms.auth.social_auth %}
+    {% if not user.social_auth.exists %}
         <a id="ps-change-button" href="{% url 'glasspack_users:password_change'%}">Change password</a>
     {% endif %}
 </div>
