@@ -26,3 +26,4 @@ djoser==2.3.3
 whitenoise==6.11.0
 social-auth-app-django==5.5.1
 django-environ==0.12.0
+django-filter==25.2

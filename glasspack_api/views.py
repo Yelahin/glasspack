@@ -1,13 +1,16 @@
+from django.contrib.auth import get_user_model
+import django_filters.rest_framework
+from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import viewsets
 from rest_framework import generics
-from rest_framework.decorators import action 
-from rest_framework.response import Response
-from .serializers import UserMessageSerializer, ProductSerializer, SelectedFiltersSerializer
-from .permissions import IsAdminOrReadOnly
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserMessageSerializer, ProductSerializer, UserSerializer
+from .permissions import IsAdminOrReadOnly, IsAdminOrCreateOnly
 from glasspack_site.models import Product
 from glasspack_users.models import UserMessage
-from glasspack_site.utils import ProductPageContext
+
 
 
 # Create your views here.
@@ -23,25 +26,25 @@ class ProductModelViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.filter(is_published=True)
     serializer_class = ProductSerializer
     lookup_field = "slug"
+    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     permission_classes = [IsAdminOrReadOnly]
     pagination_class = PaginationProductModelViewSet
+    filterset_fields = ['categories', 'color', 'finish_type']
 
-    @action(detail=False, methods=['get'])
-    def parameters(self, request):
-        page_context = ProductPageContext(request)
-        instance = {
-            "selected_types": page_context.get_selected_types(),
-            "selected_finish_types": page_context.get_selected_obj("finish_type"),
-            "selected_colors": page_context.get_selected_obj("color"),
-            "all_finish_types": page_context.get_obj_with_count("finish_type"),
-            "all_colors": page_context.get_obj_with_count("color")
-        }
 
-        serializer = SelectedFiltersSerializer(instance=instance)
-        return Response(serializer.data)
-    
-    
 class UserMessageView(generics.CreateAPIView):
     queryset = UserMessage.objects.all()
     serializer_class = UserMessageSerializer
 
+
+class UserModelViewSet(viewsets.ModelViewSet):
+    queryset = get_user_model().objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAdminOrCreateOnly]
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def me(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
