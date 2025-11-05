@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sitemaps',
     'rest_framework',
+    'django_filters',
     'glasspack_site.apps.GlasspackSiteConfig',
     'glasspack_api.apps.GlasspackApiConfig',
     'glasspack_users.apps.GlasspackUsersConfig',
@@ -135,7 +136,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
 
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+
     'PAGE_SIZE': 10
 }
 
