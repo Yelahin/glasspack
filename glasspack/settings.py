@@ -41,7 +41,6 @@ INTERNAL_IPS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-   ***REMOVED***,
 ]
 
 # Application definition
@@ -213,8 +212,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 #Settings "Forgot your password?"
 
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_PASSWORD =***REMOVED***
-EMAIL_HOST_USER =***REMOVED***
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -229,7 +228,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("GOOGLE_SOCIAL_AUTH_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("GOOGLE_SOCIAL_AUTH_SECRET")
 
 SOCIAL_AUTH_PIPELINE = (
-'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
