@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, Pass
 from .models import UserMessage
 from captcha.fields import CaptchaField, CaptchaTextInput
 
+
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(label='', widget=forms.TextInput(attrs={'class': 'form-input', 'placeholder': 'Enter your username or email'}))
     password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'class': 'form-input', 'placeholder': 'Enter your password'}))
