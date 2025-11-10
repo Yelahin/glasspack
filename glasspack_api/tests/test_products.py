@@ -23,9 +23,9 @@ class ProductAPITestCase(APITestCase):
             diameter=100, 
         )
 
-        self.product.categories.set([cls.cat_bottle])
-        self.product.color = cls.color_bottle
-        self.product.finish_type = cls.finish_type_bottle
+        self.product.categories.set([self.cat_bottle])
+        self.product.color = self.color_bottle
+        self.product.finish_type = self.finish_type_bottle
 
         #Create url
         self.url = reverse("products-list")
