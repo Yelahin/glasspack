@@ -14,15 +14,15 @@ services:
     networks:
       - dbnet
 
-  postgres_db:
-    image: postgres
+  postgres_db: 
+    image: postgres:17
     container_name: data_base
     environment:
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     env_file:
       - .env
     networks:
@@ -43,7 +43,7 @@ services:
       - glasspack
 
 volumes:
-  pgdata:
+  db-data:
 
 networks:
   dbnet:

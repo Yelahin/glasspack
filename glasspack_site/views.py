@@ -65,3 +65,4 @@ def handler404(request, exception):
     return render(request, 'glasspack_site/errors/404.html', status=404)
 
 def handler500(request):
+    return render(request, 'glasspack_site/errors/500.html', status=500)
