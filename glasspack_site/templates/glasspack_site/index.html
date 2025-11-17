@@ -5,8 +5,8 @@
     <div class="background-section">
         <div class="title-bg">
             <div class="text-block">
-                <h2>{{ page_content.title|linebreaksbr }}</h2>
-                <p>{{ page_content.subtitle|linebreaksbr }}</p>
+                <h2>GlassPack delivers premium-quality bottles and jars to serve every industry's needs</h2>
+                <p>Offering reliable glass packaging solutions designed to enhance production, quality, and product presentation.</p>
             </div>
             <div class="button-block">
                 <a class="open-catalogue-but" href="{% url 'products' %}">OPEN CATALOGUE</a>
@@ -16,20 +16,18 @@
     </div>
     <div class="mission-section">
         <h2>Our Mission</h2>
-        <p>
-            {{ page_content.mission_intro|linebreaksbr }}
-        </p>
-        <p>
-            {{ page_content.mission_details|linebreaksbr }}
-        </p>
+        <p>To deliver more than just glass packaging by combining innovation, reliability, and <br>
+            expert support to help our clients enhance efficiency, quality, and market presence.</p>
+        <p>Innovative Solutions: Continuously develop and offer advanced glass packaging designs that <br>
+            meet the evolving needs of modern industries.</p>
     </div>
     <div class="contact-section">
-        <p>{{ page_content.contact_text}}</p>
+        <p>We're always ready to hear from you, so don't hesitate to reach out anytime!</p>
         <a href="{% url 'contact'%}">CONTACT US</a>
     </div>
     <div class="products-section">
         <h2>Our Products</h2>
-        <p>{{ page_content.products_subtitle|linebreaksbr }}</p>
+        <p>Explore our premium bottles and jars crafted for every industry. We focus on quality, durability, and versatility.<br> Check out our full product range to find the perfect solution for your business.</p>
         <div class="categories">
             <a href="{% url 'products' %}?categories=bottles" class="bottles">
                 <img src="/static/glasspack/Images/beer-ln-330.jpg" alt="bottle">

@@ -44,4 +44,3 @@ class ProductModelTest(TransactionTestCase):
         )
 
         self.assertEqual(product.slug, "bottle_-1")
-

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from glasspack_site.models import Color, FinishType, Product, Category, FooterContent, IndexContent, AboutContent, ContactContent
+from glasspack_site.models import Color, FinishType, Product, Category
 # Register your models here.
 
 #Filter classes
@@ -86,31 +86,3 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     list_per_page = 10
-
-
-#Pages classes
-
-@admin.register(FooterContent)
-class FooterContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'company_name', 'address', 'work_time', 'email', 'phone')
-    list_display_links = ('id', 'company_name', 'address', 'work_time', 'email', 'phone')
-
-
-@admin.register(IndexContent)
-class IndexContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'subtitle',)
-    list_display_links = ('id', 'title', 'subtitle', )
-
-
-@admin.register(AboutContent)
-class AboutContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'content')
-    list_display_links = ('id', 'content')
-
-
-@admin.register(ContactContent)
-class ContactContentAdmin(admin.ModelAdmin):
-    list_display = ('id', 'subtitle')
-    list_display_links = ('id', 'subtitle')
-
-    

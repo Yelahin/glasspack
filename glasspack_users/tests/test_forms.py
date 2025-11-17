@@ -145,4 +145,3 @@ class ContactForm(TestCase):
         form_data["captcha_0"] = "not valid captcha"
         invalid_form = ContactUsForm(data=form_data)
         self.assertFalse(invalid_form.is_valid())
- 

@@ -184,4 +184,3 @@ class ContactUsPage(TestCase):
         response = self.client.post(path=reverse('contact'), data= form_data)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(UserMessage.objects.filter(comment="").exists())
-

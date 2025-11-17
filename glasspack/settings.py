@@ -41,7 +41,6 @@ INTERNAL_IPS = [
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-   ***REMOVED***,
 ]
 
 # Application definition
@@ -89,7 +88,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'glasspack_site.context_processors.footer_context',
                 'glasspack_site.context_processors.get_pages_menu',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -213,8 +211,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 #Settings "Forgot your password?"
 
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_PASSWORD =***REMOVED***
-EMAIL_HOST_USER =***REMOVED***
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -224,18 +222,18 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 
 #Social Authentication
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
-
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = env("GOOGLE_SOCIAL_AUTH_KEY")
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = env("GOOGLE_SOCIAL_AUTH_SECRET")
 
 SOCIAL_AUTH_PIPELINE = (
-'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_details',
     'social_core.pipeline.social_auth.social_uid',
     'social_core.pipeline.social_auth.auth_allowed',
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
-    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_by_email',
     'glasspack_users.pipeline.new_users_handler',
+    'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',

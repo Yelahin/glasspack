@@ -2,27 +2,17 @@ from django.shortcuts import  render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .utils import  ProductPageContext
-from .models import  AboutContent, IndexContent, Product, FooterContent, ContactContent
+from .models import Product
 from glasspack_users.forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
 from glasspack import settings
 
 class IndexPage(TemplateView):
     template_name = "glasspack_site/index.html"
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_content'] = IndexContent.objects.first() or ''
-        return context
 
 
 class AboutUsPage(TemplateView):
     template_name = "glasspack_site/about.html"
-    
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['page_content'] = AboutContent.objects.first() or ''
-        return context
 
 
 class ProductPage(ListView):
@@ -51,12 +41,6 @@ class ContactUsPage(LoginRequiredMixin, FormView):
     template_name = "glasspack_site/contact.html"
     success_url = reverse_lazy('contact')
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['contact_info'] = FooterContent.objects.first() or ''
-        context['contact_subtitle'] = ContactContent.objects.first()
-        return context
-
     def form_valid(self, form):
         msg = form.save(commit=False)
         msg.user = self.request.user
@@ -81,4 +65,3 @@ def handler404(request, exception):
     return render(request, 'glasspack_site/errors/404.html', status=404)
 
 def handler500(request):
-    return render(request, 'glasspack_site/errors/500.html', status=500)

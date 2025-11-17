@@ -1,7 +1,6 @@
 Django==5.2.5
 gunicorn==23.0.0
 psycopg==3.2.6
-psycopg-c==3.2.6
 django-simple-captcha==0.6.2
 django-debug-toolbar==6.0.0
 django-ranged-response==0.2.0

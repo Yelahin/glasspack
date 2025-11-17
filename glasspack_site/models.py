@@ -4,65 +4,6 @@ from django.urls import reverse
 
 # Create your models here.
 
-#Models for templates
-
-class FooterContent(models.Model):
-    company_name = models.CharField(max_length=50)
-    company_info = models.TextField()
-    address = models.CharField(max_length=100)
-    work_time = models.CharField(max_length=50)
-    registration_number = models.CharField(max_length=100)
-    email = models.EmailField()
-    phone = models.CharField(max_length=25)
-
-    class Meta:
-        verbose_name = "5. Footer information"
-        verbose_name_plural = "5. Footer information"
-
-
-
-    def __str__(self):
-        return self.company_name
-    
-
-class ContactContent(models.Model):
-    subtitle = models.TextField()
-
-    class Meta:
-        verbose_name = "8. Contact us page information"
-        verbose_name_plural = "8. Contact us page information"
-
-    def __str__(self):
-        return self.subtitle
-    
-
-class AboutContent(models.Model):
-    content = models.TextField()
-
-    class Meta:
-        verbose_name = "7. About us page information"
-        verbose_name_plural = "7. About us page information"
-
-    def __str__(self):
-        return self.content
-    
-
-class IndexContent(models.Model):
-    title = models.CharField(max_length=255)
-    subtitle = models.CharField(max_length=255)
-    mission_intro = models.TextField(max_length=255)
-    mission_details = models.TextField(max_length=255)
-    contact_text = models.CharField(max_length=150)
-    products_subtitle = models.TextField(max_length=255)
-
-    class Meta:
-        verbose_name = "6. Home page information"
-        verbose_name_plural = "6. Home page information"
-
-    def __str__(self):
-        return self.title
-
-
 #Models for products
 
 class Category(models.Model):
@@ -133,4 +74,3 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})
-
