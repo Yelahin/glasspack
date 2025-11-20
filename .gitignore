@@ -3,3 +3,7 @@ venv
 .vscode
 __pycache__/
 *.pyc
+media
+staticfiles
+static
+assets

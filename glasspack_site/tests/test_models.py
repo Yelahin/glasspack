@@ -20,16 +20,10 @@ class ProductModelTest(TransactionTestCase):
         self.product.color = color_bottle
         self.product.finish_type = finish_type_bottle
 
-    #checks constraints of Product model
-    def negative_value_validation(self, field):
-        setattr(self.product, field, -1)
-        with self.assertRaises(IntegrityError):
-            self.product.save()
-
     def test_products_parameters_invalid_parameters_values(self):
         parameters = ["volume", "height", "weight", "diameter"]
         for parameter in parameters:
-            self.negative_value_validation(parameter)
+            self._negative_value_validation(parameter)
 
     #test slugify
     def test_product_save_slugify(self):
@@ -44,3 +38,9 @@ class ProductModelTest(TransactionTestCase):
         )
 
         self.assertEqual(product.slug, "bottle_-1")
+
+    #checks constraints of Product model
+    def _negative_value_validation(self, field):
+        setattr(self.product, field, -1)
+        with self.assertRaises(IntegrityError):
+            self.product.save()

@@ -10,19 +10,6 @@ class ProductSerializer(serializers.ModelSerializer):
         exclude = ["time_create"]
 
 
-class ProductCountSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100)
-    count = serializers.IntegerField()
-
-
-class SelectedFiltersSerializer(serializers.Serializer):
-    selected_types = serializers.ListField(child=serializers.CharField(max_length=50))
-    selected_finish_types = serializers.ListField(child=serializers.CharField(max_length=50))
-    selected_colors = serializers.ListField(child=serializers.CharField(max_length=50))
-    all_finish_types = ProductCountSerializer(many=True)
-    all_colors = ProductCountSerializer(many=True)
-
-
 class UserMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserMessage
@@ -42,8 +29,3 @@ class UserSerializer(serializers.ModelSerializer):
             password=validated_data['password']
         )
         return user
-
-
-class UserLoginSerializer(serializers.Serializer):
-    old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)

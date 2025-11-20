@@ -2,7 +2,7 @@
 {% load static %}
 {% load glasspack_site_tags %}
 {% block content %}
-{% if selected_production%}
+{% if selected_production %}
 {% with finish_str=selected_finish_types|join:"&finish_types=" color_str=selected_colors|join:"&colors=" %}
     <div class="product-page">
         <h1>Products</h1>
@@ -30,6 +30,7 @@
                             <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}" class="prod-but">READ MORE</a>
                         </div>
                         {% endfor %}
+                        <div class="product-filler"></div>
                     </div>
                     {% endif %} 
             </div>
@@ -87,4 +88,4 @@
     <h1>No products available!</h1>
 </div>
 {% endif %}
-{% endblock%}
+{% endblock %}

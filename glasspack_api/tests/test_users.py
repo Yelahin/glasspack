@@ -5,7 +5,7 @@ from rest_framework import status
 
 class UsersAPITestCase(APITestCase):
     def setUp(self):
-        get_user_model().objects.create_superuser(username="admin", password="admin_password")
+        self.admin_user = get_user_model().objects.create_superuser(username="admin", password="admin_password")
         get_user_model().objects.create_user(username="user", password="user_password")
         self.test_user = get_user_model().objects.create_user(username="test_user", password="test_user_password")
 
@@ -82,5 +82,5 @@ class UsersAPITestCase(APITestCase):
         self.client.login(username="admin", password="admin_password")
         response = self.client.get(reverse("me"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertContains(response, f'"id":1')
+        self.assertContains(response, f'"id":{self.admin_user.pk}')
         
