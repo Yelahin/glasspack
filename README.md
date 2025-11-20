@@ -32,6 +32,7 @@ This website is built for a fictional company GlassPack, which provides glass bo
 - Feedback form
 - Product catalog with CRUD operations (admin only)
 - User management with CRUD operations (admin only)
+- Filters for product catalog
 - API endpoints for products, users, and messages
 - Admin panel
 - Simple UI (HTML & CSS)
