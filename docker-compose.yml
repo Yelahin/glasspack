@@ -37,7 +37,7 @@ services:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./static:/var/www/glasspack/static
+      - ./staticfiles:/var/www/glasspack/static
       - ./media:/var/www/glasspack/media
     depends_on:
       - glasspack

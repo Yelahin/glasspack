@@ -6,6 +6,8 @@ from django.contrib.sitemaps.views import sitemap
 from glasspack_site.sitemaps import ProductsSitemap, StaticViewSitemap
 
 
+
+
 sitemaps = {
     'product': ProductsSitemap,
     'static': StaticViewSitemap,
@@ -28,6 +30,7 @@ urlpatterns = [
     re_path(r'^auth/', include('djoser.urls')),
     re_path(r'^auth/', include('djoser.urls.authtoken')),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
