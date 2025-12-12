@@ -2,67 +2,67 @@
 {% load static %}
 {% block content %}
 <div>
-    <section>
-        <!-- Welcome to the site section -->
-        <div>
-            <!-- About site section -->
-            <h2>
-                GlassPack delivers premium-quality bottles and jars 
-                to serve every industry's needs
-            </h2>
-            <h3>
-                Offering reliable glass packaging solutions designed to 
-                enhance production, quality, and product presentation.
-            </h3>
-        </div>
-
-        <div>
-            <!-- Button section -->
-            <a href="{% url 'products' %}">OPEN CATALOGUE</a>
-            <a href="{% url 'about'%}">ABOUT COMPANY</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h2>GlassPack delivers premium-quality bottles and jars</h2>
+        <h3>
+            Offering reliable glass packaging solutions designed to enhance production, quality, and product
+            presentation.
+        </h3>
+        <div class="btn-group>
+            <a href="{% url 'products' %}" class="btn btn-primary">OPEN CATALOGUE</a>
+            <a href="{% url 'about'%}" class="btn btn-glass">ABOUT COMPANY</a>
         </div>
     </section>
 
-    <section>
-        <!-- Mission section -->
-        <h2>Our Mission</h2>
+    <!-- Mission Section -->
+    <section class="glass glass-card">
+        <h2 class="section-title">Our Mission</h2>
 
-        <p>
-            To deliver more than just glass packaging by combining innovation, reliability, and
-            expert support to help our clients enhance efficiency, quality, and market presence.
-        </p>
-
-        <p>
-            Innovative Solutions: Continuously develop and offer advanced glass packaging designs that
-            meet the evolving needs of modern industries.
-        </p>
-    </section>
-
-    <section>
-        <!-- Contact us section -->
-        <p>We're always ready to hear from you, so don't hesitate to reach out anytime!</p>
-        <a href="{% url 'contact'%}">CONTACT US</a>
-    </section>
-
-    <section>
-        <!-- Products section-->
-        <h2>Our Products</h2>
-        <p>
-            Explore our premium bottles and jars crafted for every industry. 
-            We focus on quality, durability, and versatility. Check out our 
-            full product range to find the perfect solution for your business.
-        </p>
+        <div class="mb-2">
+            <p>
+                To deliver more than just glass packaging by combining innovation, reliability, and
+                expert support to help our clients enhance efficiency, quality, and market presence.
+            </p>
+        </div>
 
         <div>
-            <a href="{% url 'products' %}?categories=bottles">
-                <img src="/static/glasspack/Images/beer-ln-330.jpg">
+            <p class="mb-2">
+                <strong class="feature-highlight">Innovative Solutions:</strong>
+                Continuously develop and offer advanced glass packaging designs that
+                meet the evolving needs of modern industries.
+            </p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section>
+        <h2 class="section-title">Our Products</h2>
+        <div class="text-center mb-2">
+            <p class="cta-text">
+                Explore our premium bottles and jars crafted for every industry.
+                We focus on quality, durability, and versatility. Check out our
+                full product range to find the perfect solution for your business.
+            </p>
+        </div>
+
+        <div class="products-grid">
+            <a href="{% url 'products' %}?categories=bottles" class="glass product-card">
+                <img src="/static/glasspack/Images/beer-ln-330.jpg" alt="Bottles">
                 <span>Bottles</span>
             </a>
-            <a href="{% url 'products' %}?categories=jars">
-                <img src="/static/glasspack/Images/jar.webp">
+            <a href="{% url 'products' %}?categories=jars" class="glass product-card">
+                <img src="/static/glasspack/Images/jar.webp" alt="Jars">
                 <span>Jars</span>
             </a>
         </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="text-center glass glass-card">
+        <h3>We're always ready to hear from you</h3>
+        <p>Don't hesitate to reach out anytime!</p>
+        <a href="{% url 'contact'%}" class="btn btn-primary mt-2">CONTACT US</a>
     </section>
 </div>
 {% endblock %}

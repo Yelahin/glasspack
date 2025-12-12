@@ -1,41 +1,93 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
-    <section>
-        {% if product.image %}
-            <img src="{{ product.image.url}}" alt="{{ product.model }}">
-        {% endif %}
-    </section>
-    <section>
-        <h1>{{ product.model }}</h1>
-        <table>
-            <tr>
-                <td>Volume</td>
-                <td>{{ product.volume }} ml</td>
-            </tr>
-            <tr>
-                <td>Diameter</td>
-                <td>{{ product.diameter }} mm</td>
-            </tr>
-            <tr>
-                <td>Weight</td>
-                <td>{{ product.weight}} g</td>
-            </tr>
-            <tr>
-                <td>Height</td>
-                <td>{{ product.height }} mm</td>
-            </tr>
-            <tr>
-                <td>Type of finish</td>
-                <td>{{ product.finish_type }}</td>
-            </tr>
-            <tr>
-                <td>Color</td>
-                <td>{{ product.color }}</td>
-            </tr>
-        </table>
-        <a href="{{ request.GET.next|default:'/products/' }}">Back to Products</a>
-    </section>
+<div class="container animate-on-scroll">
+    <div class="glass glass-card" class="product-detail-container">
+        <!-- Back Navigation -->
+        <div >
+            <a href="{{ request.GET.next|default:'/products/' }}" class="btn btn-primary"
+                class="back-btn">
+                <span>←</span> Back to Products
+            </a>
+        </div>
+
+        <div class="product-detail-layout">
+
+            <!-- Product Image Section -->
+            <div class="product-image-section">
+                <div
+                    class="product-image-wrapper">
+                    {% if product.image %}
+                    <img src="{{ product.image.url}}" alt="{{ product.model }}"
+                        >
+                    {% else %}
+                    <img src="/media/context/image.png" alt="Placeholder"
+                        >
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Product Details Section -->
+            <div class="product-info-section">
+                <h1
+                    class="product-title-large">
+                    {{ product.model }}</h1>
+
+                <style>
+                    .product-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                        font-size: 1.1rem;
+                    }
+
+                    .product-table td {
+                        padding: 1rem 0;
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                    }
+
+                    .product-table tr:last-child td {
+                        border-bottom: none;
+                    }
+
+                    .label-col {
+                        color: #b3cdd1;
+                        font-weight: 500;
+                        width: 40%;
+                    }
+
+                    .value-col {
+                        font-weight: 300;
+                    }
+                </style>
+
+                <table class="product-table">
+                    <tr>
+                        <td class="label-col">Volume</td>
+                        <td class="value-col">{{ product.volume }} ml</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Diameter</td>
+                        <td class="value-col">{{ product.diameter }} mm</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Weight</td>
+                        <td class="value-col">{{ product.weight}} g</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Height</td>
+                        <td class="value-col">{{ product.height }} mm</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Type of finish</td>
+                        <td class="value-col">{{ product.finish_type }}</td>
+                    </tr>
+                    <tr>
+                        <td class="label-col">Color</td>
+                        <td class="value-col">{{ product.color }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

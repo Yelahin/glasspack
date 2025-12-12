@@ -1,12 +1,15 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
+<div class="glass glass-card form-container animate-on-scroll">
+    <h2 class="text-center">Register</h2>
     <form method="post">
         {% csrf_token%}
         <input type="hidden" name="next" value="{{ next }}" />
-        {{ form.as_p }}
-        <button type="submit">Enter</button>
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary" class="btn-full-width">Sign Up</button>
     </form>
 </div>
 {% endblock %}

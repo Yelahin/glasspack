@@ -2,108 +2,156 @@
 {% load static %}
 {% load glasspack_site_tags %}
 {% block content %}
-{% if selected_production %}
+<div class="container animate-on-scroll">
+    {% if selected_production %}
     {% with finish_str=selected_finish_types|join:"&finish_types=" color_str=selected_colors|join:"&colors=" %}
-    <div>
+
+    <div class="text-center mb-2">
         <h1>Products</h1>
-        <section>
-            <!-- Bottles/Jars filter-->
-            {% with finish_param=selected_finish_types|finish_param:finish_str color_param=selected_colors|color_param:color_str %}
-            <a href="?categories={{ selected_types|type_select:'bottles' }}{{ finish_param }}{{ color_param }}"
-                class="{% if 'bottles' in selected_types %}active{% endif %}">BOTTLES</a>
+        <div class="d-flex justify-content-center align-items-center gap-2 mt-2" style="flex-wrap: wrap;">
+            <div class="btn-group">
+                <!-- Bottles/Jars filter-->
+                {% with finish_param=selected_finish_types|finish_param:finish_str color_param=selected_colors|color_param:color_str %}
+                <a href="?categories={{ selected_types|type_select:'bottles' }}{{ finish_param }}{{ color_param }}"
+                    class="btn {% if 'bottles' in selected_types %}btn-primary{% else %}btn-glass{% endif %}">BOTTLES</a>
 
-            <a href="?categories={{ selected_types|type_select:'jars' }}{{ finish_param }}{{ color_param }}"
-                class="{% if 'jars' in selected_types %}active{% endif %}">JARS</a>
-            {% endwith %}
-        </section>
+                <a href="?categories={{ selected_types|type_select:'jars' }}{{ finish_param }}{{ color_param }}"
+                    class="btn {% if 'jars' in selected_types %}btn-primary{% else %}btn-glass{% endif %}">JARS</a>
+                {% endwith %}
+            </div>
+        </div>
+    </div>
 
-        <section>
-            <div>
-                <!-- Products catalogue-->
+    <div class="mb-05 ml-02">
+        <button id="toggleFilters" class="btn btn-glass" class="btn btn-glass btn-clear">
+            <span id="toggleIcon">-</span> Hide Filters
+        </button>
+    </div>
+
+    <div class="products-layout">
+        <!-- Filter Sidebar -->
+        <aside id="filterSidebar" class="glass glass-card filter-sidebar" class="glass filter-sidebar">
+            <h3 class="filter-header">Filters</h3>
+            <form action="" method="get">
+                <input type="hidden" name="categories" value="{{ selected_types|join:',' }}">
+
+                <!-- Finish filter-->
+                <div>
+                    <h4 class="filter-section-title">Finish Type</h4>
+                    {% for finish in filtered_finish_products %}
+                    <div class="checkbox-group" class="mb-05">
+                        <label for="finish_type_{{ forloop.counter }}" class="filter-label">
+                            <input type="checkbox" id="finish_type_{{ forloop.counter }}" name="finish_types"
+                                value="{{ finish.name }}" {% if selected_finish_types and finish.name in selected_finish_types%}checked{% endif %} class="filter-checkbox">
+                            {{ finish.name }} <span class="filter-count">({{ finish.count }})</span>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Color filter -->
+                <div>
+                    <h4 class="filter-section-title">Color</h4>
+                    {% for col in filtered_color_products %}
+                    <div class="checkbox-group" class="mb-05">
+                        <label for="color_{{ forloop.counter }}" class="filter-label">
+                            <input type="checkbox" id="color_{{ forloop.counter }}" name="colors" value="{{ col.name }}"
+                                {% if selected_colors and col.name in selected_colors %}checked{% endif %}
+                                class="filter-checkbox">
+                            {{ col.name }} <span class="filter-count">({{ col.count }})</span>
+                        </label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </aside>
+
+        <!-- Product Grid Area -->
+        <div id="productGrid" class="product-grid-area">
+            <div class="products-grid">
                 {% for product in selected_production%}
-                    <div>
-                        <!-- Product image which links to product details -->
-                        <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}">
-                            {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.model }}">
-                            {% else %}
-                                <img src="/media/context/image.png">
-                            {% endif %}
-                        </a>
-                        <p>{{ product.model }}</p>
-                        <!-- READ MORE button for product details -->
-                        <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}">READ MORE</a>
-                    </div>
+                <div class="glass glass-card product-card">
+                    <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.model }}">
+                        {% else %}
+                        <img src="/media/context/image.png" alt="Placeholder">
+                        {% endif %}
+                    </a>
+                    <h4 class="success-title">{{ product.model }}</h4>
+                    <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}"
+                        class="btn btn-primary" class="btn-small">View Details</a>
+                </div>
                 {% endfor %}
             </div>
-        </section>
 
-        <section>
-            <!-- Main products filter -->
-            <h3>Product Filter</h3>
-            <div>
-                <form action="" method="get">
-                    <div>
-                        <input type="hidden" name="categories" value="{{ selected_types|join:',' }}">
-                    </div>
-                    <div>
-                        <!-- Finish filter-->
-                        <h4>Type of finish</h4>
-                        {% for finish in filtered_finish_products %}
-                        <div>
-                            <input 
-                            type="checkbox" 
-                            id="finish_type_{{ forloop.counter }}" 
-                            name="finish_types"
-                            value="{{ finish.name }}" 
-                            {% if selected_finish_types and finish.name in selected_finish_types%}checked{% endif %}>
-                            <label for="finish_type_{{ forloop.counter}}">{{ finish.name }} ({{ finish.count }})</label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <div>
-                        <!-- Color filter -->
-                        <h4>Color</h4>
-                        {% for col in filtered_color_products %}
-                        <div>
-                            <input 
-                            type="checkbox" 
-                            id="color_{{ forloop.counter }}" 
-                            name="colors" 
-                            value="{{ col.name }}"
-                            {% if selected_colors and col.name in selected_colors %}checked{% endif %}>
-                            <label for="color_{{ forloop.counter}}">{{ col.name }} ({{ col.count }})</label>
-                        </div>
-                        {% endfor %}
-                    </div>
-                </form>
-            </div>
-        </section>
-
-        <section>
-            <!-- Products pagination -->
+            <!-- Pagination -->
             {% if page_obj.has_other_pages %}
-                {% if page_obj.has_previous %}
-                    <a href="?{{ querystring }}&page={{ page_obj.previous_page_number }}">&laquo;</a>
-                {% endif %}
-                {% for num in page_obj.paginator.page_range %}
-                    {% if page_obj.number == num %}
-                        <span>{{ num }}</span>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} 
-                        <a href="?{{ querystring }}&page={{ num }}">{{ num }}</a>
+            <div class="text-center mt-3">
+                <div class="glass pagination-container">
+                    {% if page_obj.has_previous %}
+                    <a href="?{{ querystring }}&page={{ page_obj.previous_page_number }}"
+                        class="btn btn-glass pagination-btn">&laquo;</a>
                     {% endif %}
-                {% endfor %}
-                {% if page_obj.has_next %}
-                    <a href="?{{ querystring }}&page={{ page_obj.next_page_number }}" >&raquo;</a>
-                {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <span class="btn btn-primary pagination-current">{{ num }}</span>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                        href="?{{ querystring }}&page={{ num }}" class="btn btn-glass pagination-btn">{{ num }}</a>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                        <a href="?{{ querystring }}&page={{ page_obj.next_page_number }}"
+                            class="btn btn-glass pagination-btn">&raquo;</a>
+                        {% endif %}
+                </div>
+            </div>
             {% endif %}
-        </section>
+        </div>
     </div>
     {% endwith %}
-{% else %}
-    <div>
-        <h1>No products available!</h1>
+
+    {% else %}
+    <div class="glass glass-card text-center" class="empty-state">
+        <h1>No products found matching your criteria.</h1>
+        <a href="{% url 'products' %}" class="btn btn-primary mt-2">Clear Filters</a>
     </div>
-{% endif %}
+    {% endif %}
+</div>
 <script src="{% static 'glasspack/JavaScript/filter.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.getElementById('toggleFilters');
+        const filterSidebar = document.getElementById('filterSidebar');
+        const productGrid = document.getElementById('productGrid');
+
+        // Check localStorage for saved filter state
+        const filtersHidden = localStorage.getItem('filtersHidden') === 'true';
+
+        // Apply saved state on page load
+        if (filtersHidden) {
+            filterSidebar.style.display = 'none';
+            productGrid.style.flex = '1 1 100%';
+            toggleBtn.innerHTML = '<span id="toggleIcon">+</span> Show Filters';
+        } else {
+            toggleBtn.innerHTML = '<span id="toggleIcon">−</span> Hide Filters';
+        }
+
+        toggleBtn.addEventListener('click', function () {
+            if (filterSidebar.style.display === 'none') {
+                filterSidebar.style.display = 'block';
+                productGrid.style.flex = '3 1 600px';
+                toggleBtn.innerHTML = '<span id="toggleIcon">−</span> Hide Filters';
+                localStorage.setItem('filtersHidden', 'false');
+            } else {
+                filterSidebar.style.display = 'none';
+                productGrid.style.flex = '1 1 100%';
+                toggleBtn.innerHTML = '<span id="toggleIcon">+</span> Show Filters';
+                localStorage.setItem('filtersHidden', 'true');
+            }
+        });
+    });
+</script>
 {% endblock %}

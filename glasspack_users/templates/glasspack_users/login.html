@@ -1,15 +1,23 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
+<div class="glass glass-card form-container animate-on-scroll">
+    <h2 class="text-center">Login</h2>
     <form method="post">
         {% csrf_token%}
         <input type="hidden" name="next" value="{{ next }}" />
-        {{ form.as_p }}
-        <button type="submit">Enter</button>
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="btn btn-primary" class="btn-full-width">Enter</button>
     </form>
-    <a href="{% url 'glasspack_users:password_reset' %}">Forgot your password?</a>
 
-    <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a>
+    <div class="text-center mt-2">
+        <a href="{% url 'glasspack_users:password_reset' %}"
+            class="text-center forgot-password-link">Forgot your
+            password?</a>
+        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-glass"
+            class="btn btn-glass google-login-btn">Login with Google</a>
+    </div>
 </div>
 {% endblock %}

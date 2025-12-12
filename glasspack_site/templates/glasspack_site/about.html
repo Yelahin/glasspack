@@ -1,40 +1,54 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
-    <h1>About us</h1>
-    <hr>
+<div class="container animate-on-scroll">
+    <div class="text-center mb-2">
+        <h1>About Us</h1>
+        <hr class="hr-light-shadow">
+    </div>
 
-    <!-- Short summary about company-->
-    <p>
-        Glass Pack offers high-quality glass bottles and jars for alcohol, food, and beekeeping 
-        industries. We ensure reliable supply and packaging that enhances your product.
-    </p>
+    <!-- Unified Glass Section -->
+    <div class="glass glass-card">
+        <!-- Intro Summary -->
+        <div class="text-center mb-2 about-intro">
+            <p>
+                Glass Pack offers high-quality glass bottles and jars for alcohol, food, and beekeeping
+                industries. We ensure reliable supply and packaging that enhances your product.
+            </p>
+        </div>
 
-    <h3>Who we are</h3>
+        <h3 class="text-center about-section-title">Who We Are</h3>
 
-    <!-- Article about company in details -->
-    <article>
-        <p>
-            Glass Pack is a company dedicated to delivering durable, well-designed glass packaging 
-            solutions for producers of all sizes. We work directly with trusted manufacturers to 
-            offer bottles and jars that meet modern industry standards while keeping classic 
-            craftsmanship alive.
-        </p>
+        <!-- Internal 2-Column Grid -->
+        <div class="products-grid" style="gap: 4rem; align-items: flex-start;">
+            <article>
+                <h4 class="about-feature-title">Our Dedication</h4>
+                <p>
+                    Glass Pack is dedicated to delivering durable, well-designed glass packaging solutions
+                    for producers of all sizes. We work directly with trusted manufacturers to offer bottles
+                    and jars that meet modern industry standards.
+                </p>
+            </article>
 
-        <p>
-            Our team understands how important packaging is—not just for protecting the product, 
-            but for shaping your brand's image and helping it stand out on the shelf. That's why 
-            we focus on quality, clarity, and dependable logistics, ensuring you always receive the 
-            packaging you need, when you need it.
-        </p>
+            <article>
+                <h4 class="about-feature-title">Our Focus</h4>
+                <p>
+                    We understand how important packaging is for protecting your product and shaping your
+                    brand's image. That's why we focus on quality, clarity, and dependable logistics to
+                    ensure you receive the packaging you need, when you need it.
+                </p>
+            </article>
+        </div>
 
-        <p>
-            Whether you are a local winery, a brewing company, a food producer, or a beekeeper, 
-            Glass Pack provides flexible and professional solutions tailored to your business. 
-            Our goal is to support your product with glass packaging that reflects its true value 
-            and quality.
-        </p>
-    </article>
+        <!-- Closing Statement -->
+        <div class="text-center mt-2 about-closing">
+            <p>
+                Whether you are a local winery, a brewing company, a food producer, or a beekeeper,
+                Glass Pack provides flexible and professional solutions tailored to your business.
+                Our goal is to support your product with glass packaging that reflects its true value
+                and quality.
+            </p>
+        </div>
+    </div>
 </div>
 {% endblock%}

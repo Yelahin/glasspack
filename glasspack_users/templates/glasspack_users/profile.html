@@ -1,18 +1,22 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
+<div class="glass glass-card form-container animate-on-scroll">
+    <h1 class="text-center">Profile</h1>
     <div>
-        <h1>Profile</h1>
-        <div>
-            <form action="post">
-                {% csrf_token %}
+        <form action="post">
+            {% csrf_token %}
+            <div class="form-group">
                 {{ form.as_p }}
-            </form>
-        </div>
+            </div>
+            <!-- Assuming there might be a save button needed here, but keeping original structure mostly -->
+        </form>
     </div>
+
     {% if not user.social_auth.exists %}
-        <a href="{% url 'glasspack_users:password_change'%}">Change password</a>
+    <div class="text-center" class="mt-2">
+        <a href="{% url 'glasspack_users:password_change'%}" class="btn btn-glass">Change password</a>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

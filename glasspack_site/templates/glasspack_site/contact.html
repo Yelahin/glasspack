@@ -1,21 +1,38 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div>
-    <h1>Contact us!</h1>
-    <div>
+<div class="container animate-on-scroll">
+    <div class="glass glass-card form-container form-container-centered">
+        <div class="text-center">
+            <h1 class="form-title">Contact Us</h1>
+        </div>
         <form method="post">
             {% csrf_token %}
             {% for field in form %}
-                {% if field.name != 'captcha' %}
-                    {{ field }}
-                {% else %}
-                    <div>
-                        {{ field }}
-                    </div>
+            {% if field.name != 'captcha' %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div class="form-error">
+                    {{ field.errors }}
+                </div>
                 {% endif %}
-            {% endfor %}
-            <button type="submit">Send</button>
+            </div>
+            {% else %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                <div class="captcha-wrapper">
+                    {{ field }}
+                </div>
+                {% if field.errors %}
+                <div class="form-error">
+                    {{ field.errors }}
+                </div>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+                <button type="submit" class="btn btn-primary btn-full-width">Send Message</button>
         </form>
     </div>
 </div>
