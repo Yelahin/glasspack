@@ -1,15 +1,15 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="product-show">
-    <div class="prod-container">
+<div>
+    <section>
         {% if product.image %}
-            <img src="{{ product.image.url}}" alt="{{ product.model }}" class="product-img">
+            <img src="{{ product.image.url}}" alt="{{ product.model }}">
         {% endif %}
-    </div>
-    <div class="product-info">
-        <h1 class="prod-model">{{ product.model }}</h1>
-        <table class="prod-parameters">
+    </section>
+    <section>
+        <h1>{{ product.model }}</h1>
+        <table>
             <tr>
                 <td>Volume</td>
                 <td>{{ product.volume }} ml</td>
@@ -35,7 +35,7 @@
                 <td>{{ product.color }}</td>
             </tr>
         </table>
-        <a href="{{ request.GET.next|default:'/products/' }}" class="back-to-prod">Back to Products</a>
-    </div>
+        <a href="{{ request.GET.next|default:'/products/' }}">Back to Products</a>
+    </section>
 </div>
 {% endblock %}

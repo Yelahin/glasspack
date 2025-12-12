@@ -1,5 +1,5 @@
 # About The Project
-<img src="/glasspack_site/static/glasspack/Images/logo-transparent.png">
+<img src="/glasspack_site/static/glasspack/Images/blue-logo.png">
 <br>
 <br>
 This website is built for a fictional company GlassPack, which provides glass bottles and jars. This website is a showcase of my skills in creating the backend part of a web application using the Django framework.

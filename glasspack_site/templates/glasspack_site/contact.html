@@ -1,25 +1,22 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="contact">
-    <h1>Our contacts</h1>
-    <p>You can leave your message here!</p>
-    <div class="contact-box">
-        <div class="contact-input">
-            <form method="post">
-                {% csrf_token %}
-                {% for f in form %}
-                    {% if f.name != 'captcha' %}
-                        {{ f }}
-                    {% else %}
-                        <div class="captcha-group">
-                            {{ f }}
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                <button type="submit" class="contact-button">Send</button>
-            </form>
-        </div>
+<div>
+    <h1>Contact us!</h1>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {% if field.name != 'captcha' %}
+                    {{ field }}
+                {% else %}
+                    <div>
+                        {{ field }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <button type="submit">Send</button>
+        </form>
     </div>
 </div>
 {% endblock%}

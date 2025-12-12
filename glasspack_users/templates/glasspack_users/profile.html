@@ -1,10 +1,10 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="margin-page">
-    <div id="profile-block">
-        <h1 id="profile-title">Profile</h1>
-        <div id="profile-form-box">
+<div>
+    <div>
+        <h1>Profile</h1>
+        <div>
             <form action="post">
                 {% csrf_token %}
                 {{ form.as_p }}
@@ -12,7 +12,7 @@
         </div>
     </div>
     {% if not user.social_auth.exists %}
-        <a id="ps-change-button" href="{% url 'glasspack_users:password_change'%}">Change password</a>
+        <a href="{% url 'glasspack_users:password_change'%}">Change password</a>
     {% endif %}
 </div>
 {% endblock %}

@@ -1,14 +1,12 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="margin-page">
-    <div class="login-form">
-        <form method="post">
-            {% csrf_token%}
-            <input type="hidden" name="next" value="{{ next }}" />
-            {{ form.as_p }}
-            <button type="submit" class="login-button">Enter</button>
-        </form>
-    </div>
+<div>
+    <form method="post">
+        {% csrf_token%}
+        <input type="hidden" name="next" value="{{ next }}" />
+        {{ form.as_p }}
+        <button type="submit">Enter</button>
+    </form>
 </div>
 {% endblock %}

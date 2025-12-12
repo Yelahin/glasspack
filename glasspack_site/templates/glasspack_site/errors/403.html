@@ -1,9 +1,11 @@
 {% extends 'basic.html' %}
 {% load static %}
 {% block content %}
-<div class="error-page">
+<div>
     <h1>Access Denied</h1>
-    <p>You don't have permission to view this page.</p>
-    <a href="{% url 'home' %}">Home</a>
+    <div>
+        <p>You don't have permission to view this page.</p>
+        <a href="{% url 'home' %}">Home</a>
+    </div>
 </div>
 {% endblock%}
