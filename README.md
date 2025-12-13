@@ -9,19 +9,19 @@ This website is built for a fictional company GlassPack, which provides glass bo
 # Gifs
 
 #### Home Page
-![Demo](assets/home-page-gif.gif)
+![Demo](assets/home-page.gif)
 <br>
 
 #### About Us Page
-![Demo](assets/about-page-gif.gif)
+![Demo](assets/about-page.gif)
 <br>
 
 #### Products Page
-![Demo](assets/products-page-gif.gif)
+![Demo](assets/product-page.gif)
 <br>
 
 #### Contact Us Page
-![Demo](assets/contact-page-gif.gif)
+![Demo](assets/contact-page.gif)
 <br>
 <br>
 
