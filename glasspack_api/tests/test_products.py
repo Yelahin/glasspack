@@ -12,20 +12,20 @@ class ProductAPITestCase(APITestCase):
 
         #Create a product
         self.cat_bottle = Category.objects.create(name="bottles")
-        self.color_bottle = Color.objects.create(name="green")
-        self.finish_type_bottle = FinishType.objects.create(name="Crown")
+        self.cat = Color.objects.create(name="green")
+        self.finish_type = FinishType.objects.create(name="Crown")
 
         self.product = Product.objects.create(
-            model="Bottle 1",
+            name="Bottle 1",
             volume=100,
             height=100,
             weight=100, 
             diameter=100, 
+            color=self.cat,
+            finish_type=self.finish_type
         )
 
         self.product.categories.set([self.cat_bottle])
-        self.product.color = self.color_bottle
-        self.product.finish_type = self.finish_type_bottle
 
         #Create url
         self.url = reverse("products-list")
@@ -33,19 +33,19 @@ class ProductAPITestCase(APITestCase):
     def test_get_product(self):
         resposne = self.client.get(self.url)
         self.assertEqual(resposne.status_code, status.HTTP_200_OK)
-        self.assertEqual(resposne.data['results'][0]['model'], self.product.model)
+        self.assertEqual(resposne.data['results'][0]['name'], self.product.name)
 
     def test_only_super_user_can_create_product(self):
         #Set parameters for product
         data = {
-            "model": "Bottle 2",
+            "name": "Bottle 2",
             "volume": 100, 
             "height": 100,
             "weight": 100, 
             "diameter": 100,
             "categories": [self.cat_bottle.pk],
-            "color": self.color_bottle.pk,
-            "finish_type": self.finish_type_bottle.pk,
+            "color": self.cat.pk,
+            "finish_type": self.finish_type.pk,
         }
 
         #unauthorized user
@@ -61,7 +61,7 @@ class ProductAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_only_super_user_can_update_product(self):
-        data = {"model": "New model"}
+        data = {"name": "New product"}
         #unauthorized user
         response = self.client.patch(reverse("products-detail", kwargs={"pk": self.product.pk}), data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -78,14 +78,14 @@ class ProductAPITestCase(APITestCase):
         #unauthorized user
         response = self.client.delete(reverse("products-detail", kwargs={"pk": self.product.pk}))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-        self.assertTrue(Product.objects.filter(model="Bottle 1").exists())
+        self.assertTrue(Product.objects.filter(name="Bottle 1").exists())
         #authorized user
         self.client.login(username="user", password="user_password")
         response = self.client.delete(reverse("products-detail", kwargs={"pk": self.product.pk}))
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-        self.assertTrue(Product.objects.filter(model="Bottle 1").exists())
+        self.assertTrue(Product.objects.filter(name="Bottle 1").exists())
         #admin user
         self.client.login(username="admin", password="admin_password")
         response = self.client.delete(reverse("products-detail", kwargs={"pk": self.product.pk}))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-        self.assertFalse(Product.objects.filter(model="Bottle 1").exists())
+        self.assertFalse(Product.objects.filter(name="Bottle 1").exists())
