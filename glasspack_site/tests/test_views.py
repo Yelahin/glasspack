@@ -117,7 +117,7 @@ class ShowProductPageTest(TestCase):
         color = Color.objects.create(name="example_color")
         finish_type = FinishType.objects.create(name="example_finish_type")
 
-        Product.objects.create(
+        cls.product = Product.objects.create(
             name="example_model",
             volume=100,
             height=100,
@@ -128,10 +128,10 @@ class ShowProductPageTest(TestCase):
         )
 
     def test_show_page_use_correct_template(self):
-        response = self.client.get('/products/example_model/')
+        response = self.client.get(reverse("products") + f"{self.product.name}/")
         self.assertTemplateUsed(response, "glasspack_site/show_product.html")
 
     def test_show_page_context(self):
-        response = self.client.get('/products/example_model/')
+        response = self.client.get(reverse("products") +  f"{self.product.name}/")
         self.assertContains(response, "Volume")
         self.assertContains(response, "100 ml")

@@ -156,7 +156,7 @@ class ContactUsPage(TestCase):
         
     def test_contact_page_redirects_for_anonymous_users(self):
         response = self.client.get(reverse('contact'))
-        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + "?next=/contact/")
+        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + f"?next={reverse("contact")}")
 
     def test_conteact_page_access_for_registered_users(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
