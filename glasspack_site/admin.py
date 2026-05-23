@@ -66,7 +66,8 @@ class ProductAdmin(admin.ModelAdmin):
         
     @admin.display(ordering='id')
     def product_photo(self, product: Product):
-        return mark_safe(f"<img src='{product.image.url}' width='50'>")
+        if product.image:
+            return mark_safe(f"<img src='{product.image.url}' width='50'>")
 
 
 @admin.register(FinishType)
