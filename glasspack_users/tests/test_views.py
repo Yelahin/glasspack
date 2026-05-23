@@ -20,14 +20,14 @@ class RegistrationPages(TestCase):
         self.assertTemplateUsed(response, 'glasspack_users/registration.html')
 
     def test_register_page_valid_form(self):
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         self.assertTrue(UserRegistrationForm(data=form_data).is_valid())
         response = self.client.post(path=reverse('glasspack_users:sign_up'), data=form_data)
         self.assertRedirects(response, expected_url=reverse('glasspack_users:register_done'))
         self.assertTrue(get_user_model().objects.filter(username="illia").exists())
 
     def test_register_page_invalid_form(self):
-        form_invalid_data = self.form.data
+        form_invalid_data = self.form.data.copy()
         form_invalid_data['password2'] = "some_password"
         self.assertFalse(UserRegistrationForm(data=form_invalid_data).is_valid())
         response = self.client.post(path=reverse('glasspack_users:sign_up'), data=form_invalid_data)
@@ -85,7 +85,7 @@ class ProfilePage(TestCase):
 class PasswordRecoveryPage(TestCase):
     def test_password_recovery_page_use_correct_template(self):
         response = self.client.get(reverse('glasspack_users:password_reset'))
-        self.assertTemplateUsed(response, 'glasspack_users/reset_form.html')
+        self.assertTemplateUsed(response, 'glasspack_users/password_reset_form.html')
 
     def test_password_recovery_done_page_use_correct_template(self):
         response = self.client.get(reverse('glasspack_users:password_reset_done'))
@@ -100,7 +100,7 @@ class PasswordRecoveryPage(TestCase):
     def test_password_recovery_page_invalid_form(self):
         email_for_recovery = {"email": "invalid"}
         response = self.client.post(path=reverse('glasspack_users:password_reset'), data=email_for_recovery)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
 class PasswordChangePage(TestCase):
@@ -170,14 +170,14 @@ class ContactUsPage(TestCase):
 
     def test_contact_page_complete_valid_form(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         response = self.client.post(path=reverse('contact'), data=form_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(UserMessage.objects.filter(comment="test comment").exists())
 
     def test_contact_page_complete_invalid_form(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         form_data["comment"] = ""
         response = self.client.post(path=reverse('contact'), data= form_data)
         self.assertEqual(response.status_code, 200)
