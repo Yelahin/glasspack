@@ -1,46 +1,74 @@
 from django.db import IntegrityError
 from django.test import TransactionTestCase
 from glasspack_site.models import Category, Color, FinishType, Product
+from django.utils.text import slugify
 
-class ProductModelTest(TransactionTestCase):
+class ProductTests(TransactionTestCase):
     def setUp(self):
-        cat_bottle = Category.objects.create(name="bottles")
-        color_bottle = Color.objects.create(name="green")
-        finish_type_bottle = FinishType.objects.create(name="Crown")
+        self.cat = Category.objects.create(name="bottles")
+        self.color = Color.objects.create(name="Green")
+        self.finish_type = FinishType.objects.create(name="Crown")
 
         self.product = Product.objects.create(
-            model="Bottle 1",
+            name="Bottle 1",
             volume=100,
             height=100,
             weight=100, 
             diameter=100, 
+            color=self.color,
+            finish_type=self.finish_type,
         )
 
-        self.product.categories.set([cat_bottle])
-        self.product.color = color_bottle
-        self.product.finish_type = finish_type_bottle
+        self.product.categories.set([self.cat])
 
-    def test_products_parameters_invalid_parameters_values(self):
+    def test_negative_values_for_parameters(self):
         parameters = ["volume", "height", "weight", "diameter"]
         for parameter in parameters:
-            self._negative_value_validation(parameter)
+            self.validate_negative_value(parameter)
 
-    #test slugify
-    def test_product_save_slugify(self):
-        self.assertEqual(self.product.slug, "bottle-1")
-
+    def test_auto_slugify(self):
         product = Product.objects.create(
-            model=" BOTTLe!()&*%$#_-- 1 ",
+            name=" BOTTLe!()&*%$#_-- 1 ",
             volume=100,
             height=100,
             weight=100, 
             diameter=100, 
+            color=self.color,
+            finish_type=self.finish_type
         )
 
         self.assertEqual(product.slug, "bottle_-1")
+        self.assertEqual(product.slug, slugify(product.name))
 
-    #checks constraints of Product model
-    def _negative_value_validation(self, field):
+    def test_sligify_uniqueness(self):
+        # Test 1
+        duplicate = Product(
+            name="Bottle 1",
+            volume=100,
+            height=100,
+            weight=100, 
+            diameter=100, 
+            color=self.color,
+            finish_type=self.finish_type,
+        )
+
+        self.assertEqual(self.product.name, duplicate.name)
+
+        with self.assertRaises(IntegrityError):
+            duplicate.save()
+
+        # Test 2
+
+        duplicate.name = "bottle 1"
+
+        self.assertNotEqual(self.product.name, duplicate.name)
+        self.assertEqual(self.product.slug, slugify(duplicate.name))
+
+        with self.assertRaises(IntegrityError):
+            duplicate.save()
+
+    #checks constraints of Product object
+    def validate_negative_value(self, field):
         setattr(self.product, field, -1)
         with self.assertRaises(IntegrityError):
             self.product.save()
