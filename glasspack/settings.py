@@ -59,8 +59,6 @@ INSTALLED_APPS = [
     'glasspack_site.apps.GlasspackSiteConfig',
     'glasspack_api.apps.GlasspackApiConfig',
     'glasspack_users.apps.GlasspackUsersConfig',
-    'djoser',
-    'debug_toolbar',
     'captcha',
     'social_django',
 ]
@@ -68,7 +66,6 @@ INSTALLED_APPS = [
 SITE_ID = 1
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
