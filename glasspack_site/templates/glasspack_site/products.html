@@ -73,12 +73,12 @@
                 <div class="glass glass-card product-card">
                     <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}">
                         {% if product.image %}
-                        <img src="{{ product.image.url }}" alt="{{ product.model }}">
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
                         {% else %}
                         <img src="/media/context/image.png" alt="Placeholder">
                         {% endif %}
                     </a>
-                    <h4 class="success-title">{{ product.model }}</h4>
+                    <h4 class="success-title">{{ product.name }}</h4>
                     <a href="{% url 'product_detail' slug=product.slug %}?next={{ request.get_full_path|urlencode }}"
                         class="btn btn-primary" class="btn-small">View Details</a>
                 </div>

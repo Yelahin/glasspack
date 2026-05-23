@@ -49,7 +49,7 @@ class ProductPageContext:
     def get_products(self):
         finish_filter = self.get_checked_obj("finish_type")
         color_filter = self.get_checked_obj("color")
-        result = self.get_qs().filter(finish_type__name__in=finish_filter, color__name__in=color_filter).order_by("model")
+        result = self.get_qs().filter(finish_type__name__in=finish_filter, color__name__in=color_filter).order_by("name")
         return result 
 
     def get_all_data(self):
