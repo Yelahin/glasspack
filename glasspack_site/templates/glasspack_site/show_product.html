@@ -18,7 +18,7 @@
                 <div
                     class="product-image-wrapper">
                     {% if product.image %}
-                    <img src="{{ product.image.url}}" alt="{{ product.model }}"
+                    <img src="{{ product.image.url}}" alt="{{ product.name }}"
                         >
                     {% else %}
                     <img src="/media/context/image.png" alt="Placeholder"
@@ -31,7 +31,7 @@
             <div class="product-info-section">
                 <h1
                     class="product-title-large">
-                    {{ product.model }}</h1>
+                    {{ product.name }}</h1>
 
                 <style>
                     .product-table {

@@ -1,13 +1,32 @@
 from django.db import models
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 # Create your models here.
 
 #Models for products
 
-class Category(models.Model):
-    name = models.CharField(max_length=100)
+class SlugifyModel(models.Model):
+    slug = models.SlugField(max_length=100, unique=True, blank=True, editable=False)
+
+    class Meta:
+        abstract = True
+
+    def clean(self):
+        slug = self.slug if self.slug else slugify(self.name)
+
+        if self.__class__.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+            raise ValidationError(f"Object with slug {slug} already exists!")
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+
+class Category(SlugifyModel):
+    name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         verbose_name = "4. Categories"
@@ -17,8 +36,8 @@ class Category(models.Model):
         return self.name
     
 
-class FinishType(models.Model):
-    name = models.CharField(max_length=100)
+class FinishType(SlugifyModel):
+    name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         verbose_name = "2. Types of finish"
@@ -28,8 +47,8 @@ class FinishType(models.Model):
         return self.name 
     
 
-class Color(models.Model):
-    name = models.CharField(max_length=100)
+class Color(SlugifyModel):
+    name = models.CharField(max_length=100, unique=True)
 
     class Meta:
         verbose_name = "3. Colors"
@@ -39,16 +58,15 @@ class Color(models.Model):
         return self.name
     
 
-class Product(models.Model):
-    model = models.CharField(max_length=100)
+class Product(SlugifyModel):
+    name = models.CharField(max_length=100, unique=True)
     volume = models.IntegerField()
     height = models.IntegerField()
     weight = models.IntegerField()
     diameter = models.IntegerField()
-    color = models.ForeignKey(Color, on_delete=models.PROTECT, null=True, blank=True)
-    finish_type = models.ForeignKey(FinishType, on_delete=models.PROTECT, null=True, blank=True)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
+    finish_type = models.ForeignKey(FinishType, on_delete=models.CASCADE)
     categories = models.ManyToManyField(Category)
-    slug = models.SlugField(max_length=100, blank=True)
     image = models.ImageField(upload_to='products/', blank=True)
     is_published = models.BooleanField(default=True)
     time_create = models.DateTimeField(auto_now_add=True)
@@ -65,12 +83,7 @@ class Product(models.Model):
         ]
 
     def __str__(self):
-        return self.model
-    
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.model)
-        super().save(*args, **kwargs)
+        return self.name
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'slug': self.slug})

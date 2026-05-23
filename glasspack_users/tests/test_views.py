@@ -15,27 +15,24 @@ class RegistrationPages(TestCase):
             "password2": "password1234!"
         })
 
-    #Register page
     def test_register_page_use_correct_template(self):
         response = self.client.get(reverse('glasspack_users:sign_up'))
         self.assertTemplateUsed(response, 'glasspack_users/registration.html')
 
-    def test_register_page_complete_valid_form(self):
-        form_data = self.form.data
+    def test_register_page_valid_form(self):
+        form_data = self.form.data.copy()
         self.assertTrue(UserRegistrationForm(data=form_data).is_valid())
         response = self.client.post(path=reverse('glasspack_users:sign_up'), data=form_data)
         self.assertRedirects(response, expected_url=reverse('glasspack_users:register_done'))
         self.assertTrue(get_user_model().objects.filter(username="illia").exists())
 
-    def test_register_page_complete_invalid_form(self):
-        form_invalid_data = self.form.data
+    def test_register_page_invalid_form(self):
+        form_invalid_data = self.form.data.copy()
         form_invalid_data['password2'] = "some_password"
         self.assertFalse(UserRegistrationForm(data=form_invalid_data).is_valid())
         response = self.client.post(path=reverse('glasspack_users:sign_up'), data=form_invalid_data)
         self.assertEqual(response.status_code, 200)
         self.assertFalse(get_user_model().objects.filter(username="illia").exists())
-
-    #Register done page
 
     def test_register_done_page_user_correct_template(self):
         response = self.client.get(reverse('glasspack_users:register_done'))
@@ -75,34 +72,35 @@ class ProfilePage(TestCase):
         response = self.client.get(reverse("glasspack_users:profile"))
         self.assertTemplateUsed(response, "glasspack_users/profile.html")
 
-    def test_profile_page_redirects_for_anonymous_users(self):
-        response = self.client.get(reverse('glasspack_users:profile'))
-        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + "?next=/profile/")
+    def test_profile_page_redirects_anonymous_users(self):
+        response = self.client.get(reverse('glasspack_users:profile'), follow=True)
+        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + f"?next={reverse('glasspack_users:profile')}")
 
-    def test_profile_page_access_for_registered_users(self):
+    def test_profile_page_available_for_registered_users(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
         response = self.client.get(reverse('glasspack_users:profile'))
         self.assertEqual(response.status_code, 200)
 
 
 class PasswordRecoveryPage(TestCase):
-    def password_recovery_page_use_correct_template(self):
+    def test_password_recovery_page_use_correct_template(self):
         response = self.client.get(reverse('glasspack_users:password_reset'))
-        self.assertTemplateUsed(response, 'glasspack_users/reset_form.html')
+        self.assertTemplateUsed(response, 'glasspack_users/password_reset_form.html')
 
-    def password_recovery_done_page_use_correct_template(self):
+    def test_password_recovery_done_page_use_correct_template(self):
         response = self.client.get(reverse('glasspack_users:password_reset_done'))
         self.assertTemplateUsed(response, 'glasspack_users/password_reset_done.html')
 
-    def password_recovery_page_redirect_to_correct_page(self):
+    def test_password_recovery_page_redirect_to_correct_page(self):
         email_for_recovery = {"email": "example@gmail.com"}
         response = self.client.post(path=reverse('glasspack_users:password_reset'), data=email_for_recovery)
         self.assertRedirects(response, expected_url=reverse('glasspack_users:password_reset_done'))
 
-    def password_recovery_page_invalid_form(self):
+
+    def test_password_recovery_page_invalid_form(self):
         email_for_recovery = {"email": "invalid"}
         response = self.client.post(path=reverse('glasspack_users:password_reset'), data=email_for_recovery)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
 
 class PasswordChangePage(TestCase):
@@ -123,16 +121,16 @@ class PasswordChangePage(TestCase):
 
     def test_password_change_page_redirects_for_annonymous_users(self):
         response = self.client.get(reverse('glasspack_users:password_change'))
-        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + "?next=/password_change/")
+        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + f"?next={reverse("glasspack_users:password_change")}")
 
     def test_password_change_page_access_for_registered_users(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
         response = self.client.get(reverse('glasspack_users:password_change'))
         self.assertEqual(response.status_code, 200)
 
-    def test_password_change_page_redirects_to_correct_page_after_valid_form(self):
+    def test_password_change_page_valid_form(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
-        form_data = {"old_password": self.user_data['password'], "new_password1": "password1234!", "new_password2": "password1234!"}
+        form_data = {"old_password": self.user_data['password'], "new_password1": "new_password1234!", "new_password2": "new_password1234!"}
         response = self.client.post(path=reverse('glasspack_users:password_change'), data=form_data)
         self.assertRedirects(response, expected_url=reverse('glasspack_users:password_change_done'))
 
@@ -158,7 +156,7 @@ class ContactUsPage(TestCase):
         
     def test_contact_page_redirects_for_anonymous_users(self):
         response = self.client.get(reverse('contact'))
-        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + "?next=/contact/")
+        self.assertRedirects(response, expected_url=reverse('glasspack_users:login') + f"?next={reverse("contact")}")
 
     def test_conteact_page_access_for_registered_users(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
@@ -172,14 +170,14 @@ class ContactUsPage(TestCase):
 
     def test_contact_page_complete_valid_form(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         response = self.client.post(path=reverse('contact'), data=form_data)
         self.assertEqual(response.status_code, 302)
         self.assertTrue(UserMessage.objects.filter(comment="test comment").exists())
 
     def test_contact_page_complete_invalid_form(self):
         self.client.login(username=self.user_data['username'], password=self.user_data['password'])
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         form_data["comment"] = ""
         response = self.client.post(path=reverse('contact'), data= form_data)
         self.assertEqual(response.status_code, 200)

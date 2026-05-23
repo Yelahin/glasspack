@@ -3,14 +3,16 @@
         "model": "glasspack_site.category",
         "pk": 1,
         "fields": {
-            "name": "bottles"
+            "name": "Bottles",
+            "slug": "bottles"
         }
     },
     {
         "model": "glasspack_site.category",
         "pk": 2,
         "fields": {
-            "name": "jars"
+            "name": "Jars",
+            "slug": "jars"
         }
     },
     {
@@ -24,42 +26,47 @@
         "model": "glasspack_site.finishtype",
         "pk": 2,
         "fields": {
-            "name": "Crown"
+            "name": "Crown",
+            "slug": "crown"
         }
     },
     {
         "model": "glasspack_site.finishtype",
         "pk": 3,
         "fields": {
-            "name": "Swing stopper"
+            "name": "Swing stopper",
+            "slug": "swing-stopper"
         }
     },
     {
         "model": "glasspack_site.finishtype",
         "pk": 4,
         "fields": {
-            "name": "Twist crown"
+            "name": "Twist crown",
+            "slug": "twist-crown"
         }
     },
     {
         "model": "glasspack_site.color",
         "pk": 1,
         "fields": {
-            "name": "Flint"
+            "name": "Flint",
+            "slug": "flint"
         }
     },
     {
         "model": "glasspack_site.color",
         "pk": 2,
         "fields": {
-            "name": "Amber"
+            "name": "Amber",
+            "slug": "amber"
         }
     },
     {
         "model": "glasspack_site.product",
         "pk": 1,
         "fields": {
-            "model": "200ml TO82",
+            "name": "200ml TO82",
             "volume": 200,
             "height": 58,
             "weight": 140,
@@ -67,7 +74,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "200ml-to82",
-            "image": "products/200ml-to82_A2XcSJ1.jpg",
+            "image": "products/200ml-to82.jpg",
             "is_published": true,
             "time_create": "2025-11-19T14:29:32.670Z",
             "categories": [
@@ -79,7 +86,7 @@
         "model": "glasspack_site.product",
         "pk": 2,
         "fields": {
-            "model": "250ml TO82",
+            "name": "250ml TO82",
             "volume": 250,
             "height": 68,
             "weight": 155,
@@ -87,7 +94,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "250ml-to82",
-            "image": "products/250ml-to82_9QuRb1X.jpg",
+            "image": "products/250ml-to82.jpg",
             "is_published": true,
             "time_create": "2025-11-19T14:37:15.146Z",
             "categories": [
@@ -99,7 +106,7 @@
         "model": "glasspack_site.product",
         "pk": 3,
         "fields": {
-            "model": "320ml TO66",
+            "name": "320ml TO66",
             "volume": 320,
             "height": 117,
             "weight": 180,
@@ -107,7 +114,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "320ml-to66",
-            "image": "products/320ml-to66_OsJMu9c.jpg",
+            "image": "products/320ml-to66.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:02:01.986Z",
             "categories": [
@@ -119,7 +126,7 @@
         "model": "glasspack_site.product",
         "pk": 4,
         "fields": {
-            "model": "330ml TO82",
+            "name": "330ml TO82",
             "volume": 330,
             "height": 75,
             "weight": 170,
@@ -127,7 +134,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "330ml-to82",
-            "image": "products/330ml-to82_67A4G8x.jpg",
+            "image": "products/330ml-to82.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:05:28.300Z",
             "categories": [
@@ -139,7 +146,7 @@
         "model": "glasspack_site.product",
         "pk": 5,
         "fields": {
-            "model": "350ml TO82",
+            "name": "350ml TO82",
             "volume": 350,
             "height": 96,
             "weight": 230,
@@ -147,7 +154,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "350ml-to82",
-            "image": "products/350ml-to82_F7BCtB5.jpg",
+            "image": "products/350ml-to82.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:06:34.046Z",
             "categories": [
@@ -159,7 +166,7 @@
         "model": "glasspack_site.product",
         "pk": 6,
         "fields": {
-            "model": "460ml TO82",
+            "name": "460ml TO82",
             "volume": 460,
             "height": 116,
             "weight": 230,
@@ -167,7 +174,7 @@
             "color": 1,
             "finish_type": 1,
             "slug": "460ml-to82",
-            "image": "products/460ml-to82_I75dqMW_s65xske.jpg",
+            "image": "products/460ml-to82.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:15:25.877Z",
             "categories": [
@@ -179,7 +186,7 @@
         "model": "glasspack_site.product",
         "pk": 7,
         "fields": {
-            "model": "Baltias alus 500",
+            "name": "Baltias alus 500",
             "volume": 500,
             "height": 251,
             "weight": 340,
@@ -187,7 +194,7 @@
             "color": 2,
             "finish_type": 2,
             "slug": "baltias-alus-500",
-            "image": "products/baltias-alus-500_KRUX0fR.jpg",
+            "image": "products/baltias-alus-500.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:16:37.754Z",
             "categories": [
@@ -199,7 +206,7 @@
         "model": "glasspack_site.product",
         "pk": 8,
         "fields": {
-            "model": "Beer LN 330",
+            "name": "Beer LN 330",
             "volume": 330,
             "height": 226,
             "weight": 200,
@@ -207,7 +214,7 @@
             "color": 2,
             "finish_type": 2,
             "slug": "beer-ln-330",
-            "image": "products/beer-ln-330_2ybNeRl.jpg",
+            "image": "products/beer-ln-330.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:17:29.114Z",
             "categories": [
@@ -219,7 +226,7 @@
         "model": "glasspack_site.product",
         "pk": 9,
         "fields": {
-            "model": "Beer LM 330",
+            "name": "Beer LM 330",
             "volume": 330,
             "height": 252,
             "weight": 355,
@@ -227,7 +234,7 @@
             "color": 2,
             "finish_type": 3,
             "slug": "beer-lm-330",
-            "image": "products/beer-lm-330_TWJpowT.png",
+            "image": "products/beer-lm-330.png",
             "is_published": true,
             "time_create": "2025-11-19T15:18:42.979Z",
             "categories": [
@@ -239,7 +246,7 @@
         "model": "glasspack_site.product",
         "pk": 10,
         "fields": {
-            "model": "Longneck 330",
+            "name": "Longneck 330",
             "volume": 330,
             "height": 234,
             "weight": 220,
@@ -247,7 +254,7 @@
             "color": 2,
             "finish_type": 4,
             "slug": "longneck-330",
-            "image": "products/longneck-330_iNoVYWU.jpg",
+            "image": "products/longneck-330.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:20:15.373Z",
             "categories": [
@@ -259,7 +266,7 @@
         "model": "glasspack_site.product",
         "pk": 11,
         "fields": {
-            "model": "Steinie 330",
+            "name": "Steinie 330",
             "volume": 330,
             "height": 174,
             "weight": 255,
@@ -267,7 +274,7 @@
             "color": 2,
             "finish_type": 2,
             "slug": "steinie-330",
-            "image": "products/Steinie-330_pQ9z23E.jpg",
+            "image": "products/steinie-330.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:21:01.331Z",
             "categories": [
@@ -279,7 +286,7 @@
         "model": "glasspack_site.product",
         "pk": 12,
         "fields": {
-            "model": "Vichy APO 330",
+            "name": "Vichy APO 330",
             "volume": 330,
             "height": 227,
             "weight": 240,
@@ -287,7 +294,7 @@
             "color": 2,
             "finish_type": 2,
             "slug": "vichy-apo-330",
-            "image": "products/vichy-apo-330_UVe3zjr.jpg",
+            "image": "products/vichy-apo-330.jpg",
             "is_published": true,
             "time_create": "2025-11-19T15:21:37.550Z",
             "categories": [

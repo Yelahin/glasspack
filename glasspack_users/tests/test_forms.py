@@ -121,27 +121,27 @@ class ContactForm(TestCase):
             'captcha_1': captcha.response})
     
     def test_valid_data(self):
-        valid_data = self.form.data 
+        valid_data = self.form.data.copy()
         valid_form = ContactUsForm(data=valid_data)
         self.assertTrue(valid_form.is_valid())
         valid_form.save()
         self.assertTrue(UserMessage.objects.filter(comment="test comment").exists())      
 
     def test_invalid_email(self):
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         form_data['email'] = "not valid email"
         invalid_form = ContactUsForm(data=form_data)
 
         self.assertFalse(invalid_form.is_valid())
 
     def test_invalid_comment(self):
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         form_data["comment"] = ""
         invalid_form = ContactUsForm(data=form_data)
         self.assertFalse(invalid_form.is_valid())
 
     def test_invalid_captcha(self):
-        form_data = self.form.data
+        form_data = self.form.data.copy()
         form_data["captcha_0"] = "not valid captcha"
         invalid_form = ContactUsForm(data=form_data)
         self.assertFalse(invalid_form.is_valid())

@@ -49,13 +49,13 @@ class VolumeFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'model', 'product_photo', 'time_create', 'is_published')
-    list_display_links = ('id', 'model', 'time_create')
+    list_display = ('id', 'name', 'product_photo', 'time_create', 'is_published')
+    list_display_links = ('id', 'name', 'time_create')
     readonly_fields = ['product_photo']
     ordering = ('time_create',)
     list_editable = ('is_published',)
     list_per_page = 10
-    search_fields = ('model', )
+    search_fields = ('name', )
     list_filter = (VolumeFilter,'is_published', 'categories')
     save_on_top = True
 
@@ -66,7 +66,8 @@ class ProductAdmin(admin.ModelAdmin):
         
     @admin.display(ordering='id')
     def product_photo(self, product: Product):
-        return mark_safe(f"<img src='{product.image.url}' width='50'>")
+        if product.image:
+            return mark_safe(f"<img src='{product.image.url}' width='50'>")
 
 
 @admin.register(FinishType)
