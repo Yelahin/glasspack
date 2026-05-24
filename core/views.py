@@ -5,7 +5,7 @@ from .utils import  ProductPageContext
 from .models import Product
 from users.forms import ContactUsForm
 from django.views.generic import DetailView, FormView, ListView, TemplateView
-from glasspack import settings
+from glasspack.settings.base import PRODUCT_PAGINATE_BY
 
 class IndexPage(TemplateView):
     template_name = "core/index.html"
@@ -18,7 +18,7 @@ class AboutUsPage(TemplateView):
 class ProductPage(ListView):
     template_name = "core/products.html"
     context_object_name = 'selected_production'
-    paginate_by = settings.PRODUCT_PAGINATE_BY
+    paginate_by = PRODUCT_PAGINATE_BY
 
     def get_queryset(self):
         self.data = ProductPageContext(self.request).get_all_data()

@@ -1,9 +1,8 @@
 from django.contrib.auth import get_user_model
-from glasspack import settings
 from django.test import TestCase
 from django.urls import reverse
 from core.models import Product, Color, FinishType, Category
-from glasspack import settings
+from glasspack.settings.base import PRODUCT_PAGINATE_BY
 import math
 
 class BaseTemplateTests(TestCase):
@@ -72,40 +71,40 @@ class ProductPageTests(TestCase):
         products_count = Product.objects.filter(is_published=True).count()
         expected_pages_count = response.context['page_obj'].paginator.num_pages
 
-        pages_count = math.ceil(products_count / settings.PRODUCT_PAGINATE_BY)
+        pages_count = math.ceil(products_count / PRODUCT_PAGINATE_BY)
 
         self.assertEqual(expected_pages_count, pages_count)
          
     def test_product_page_context(self):
         response = self.client.get(reverse('products'))
-        self.assertEqual(len(response.context['selected_production']), settings.PRODUCT_PAGINATE_BY)
+        self.assertEqual(len(response.context['selected_production']), PRODUCT_PAGINATE_BY)
         self.assertContains(response, "product_")
         
     def test_product_page_filters(self):
         # Categories
         response = self.client.get(reverse("products") + f"?categories={self.category2}")
-        pages_count = math.ceil(Product.objects.filter(categories=self.category2).count() / settings.PRODUCT_PAGINATE_BY)
+        pages_count = math.ceil(Product.objects.filter(categories=self.category2).count() / PRODUCT_PAGINATE_BY)
         expected_pages_count = response.context["page_obj"].paginator.num_pages
 
         self.assertEqual(expected_pages_count, pages_count)
 
         # Color
         response = self.client.get(reverse("products") + f"?colors={self.color2}")
-        pages_count = math.ceil(Product.objects.filter(color=self.color2).count() / settings.PRODUCT_PAGINATE_BY)
+        pages_count = math.ceil(Product.objects.filter(color=self.color2).count() / PRODUCT_PAGINATE_BY)
         expected_pages_count = response.context["page_obj"].paginator.num_pages
 
         self.assertEqual(expected_pages_count, pages_count)
 
         # Finish type
         response = self.client.get(reverse("products") + f"?finish_types={self.finish_type2}")
-        pages_count = math.ceil(Product.objects.filter(finish_type=self.finish_type2).count() / settings.PRODUCT_PAGINATE_BY)
+        pages_count = math.ceil(Product.objects.filter(finish_type=self.finish_type2).count() / PRODUCT_PAGINATE_BY)
         expected_pages_count = response.context["page_obj"].paginator.num_pages
 
         self.assertEqual(expected_pages_count, pages_count)
 
         # Categories + color + finish type
         response = self.client.get(reverse("products") + f"?categories={self.category1}&colors={self.color1}&finish_types={self.finish_type1}")
-        pages_count = math.ceil(Product.objects.filter(categories=self.category1, color=self.color1, finish_type=self.finish_type1).count() / settings.PRODUCT_PAGINATE_BY)
+        pages_count = math.ceil(Product.objects.filter(categories=self.category1, color=self.color1, finish_type=self.finish_type1).count() / PRODUCT_PAGINATE_BY)
         expected_pages_count = response.context["page_obj"].paginator.num_pages
 
         self.assertEqual(expected_pages_count, pages_count)
