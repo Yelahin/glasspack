@@ -1,0 +1,18 @@
+[
+  {
+    "model": "core.color",
+    "pk": 1,
+    "fields": {
+      "name": "Flint",
+      "slug": "flint"
+    }
+  },
+  {
+    "model": "core.color",
+    "pk": 2,
+    "fields": {
+      "name": "Amber",
+      "slug": "amber"
+    }
+  }
+]
