@@ -49,14 +49,15 @@ class VolumeFilter(admin.SimpleListFilter):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    fields = ["name", "slug", "height", "weight", "diameter", "color", "finish_type", "categories", "image", "product_photo", "is_published", "time_create"]
     list_display = ('id', 'name', 'product_photo', 'time_create', 'is_published')
     list_display_links = ('id', 'name', 'time_create')
-    readonly_fields = ['product_photo']
+    readonly_fields = ['product_photo', 'slug', 'time_create']
     ordering = ('time_create',)
     list_editable = ('is_published',)
     list_per_page = 10
     search_fields = ('name', )
-    list_filter = (VolumeFilter,'is_published', 'categories')
+    list_filter = (VolumeFilter,'is_published', 'categories', 'color', 'finish_type')
     save_on_top = True
 
     
@@ -72,18 +73,26 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(FinishType)
 class FinishTypeAdmin(admin.ModelAdmin):
+    fields = ["name", "slug"]
+    readonly_fields = ["slug"]
     list_display = ['name']
     list_display_links = ['name']
+    list_per_page = 10
 
 
 @admin.register(Color)
 class ColorAdmin(admin.ModelAdmin):
+    fields = ["name", "slug"]
+    readonly_fields = ["slug"]
     list_display = ['name']
     list_display_links = ['name']
+    list_per_page = 10
 
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
+    fields = ["name", "slug"]
+    readonly_fields = ["slug"]
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     list_per_page = 10
