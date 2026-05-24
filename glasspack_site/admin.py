@@ -56,7 +56,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('is_published',)
     list_per_page = 10
     search_fields = ('name', )
-    list_filter = (VolumeFilter,'is_published', 'categories')
+    list_filter = (VolumeFilter,'is_published', 'categories', 'color', 'finish_type')
     save_on_top = True
 
     
