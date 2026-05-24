@@ -127,8 +127,103 @@ class UsersAPITests(APITestCase):
         
 
 class UsersJWTTests(APITestCase):
-    def test_register_with_API(self):
+    def setUp(self):
+        self.username = "Test_user"
+        self.password = "password1234!"
+
+        self.user = get_user_model().objects.create_user(
+            username=self.username,
+            email="test@gmail.com",
+            password=self.password
+        )
+
+        tokens = self.client.post(
+            reverse("token_obtain_pair"),
+            data={"username": self.username, "password": self.password},
+            format="json"
+        ).data
+
+        self.access_token = tokens["access"]
+        self.refresh_token = tokens["refresh"]
+
+    def test_get_tokens_valid_credentials(self):
         response = self.client.post(
-            reverse("register"), 
-            data={"username": "Test_user", "password": "password1234!"})
-        print(response)
+            reverse("token_obtain_pair"),
+            data={"username": self.username, "password": self.password},
+            format="json"
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn("access", response.data)
+        self.assertIn("refresh", response.data)
+
+    def test_get_tokens_invalid_credentials(self):
+        response = self.client.post(
+            reverse("token_obtain_pair"),
+            data={"username": "Invalid_user", "password": self.password},
+            format="json"
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn("access", response.data)
+        self.assertNotIn("refresh", response.data)
+
+    def test_access_endpoint_with_valid_token(self):
+        response = self.client.get(
+            reverse("me"),
+            headers={"Authorization": f"Bearer {self.access_token}"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn(self.username, response.data.values())
+
+    def test_access_endpoint_without_token(self):
+        response = self.client.get(reverse("me"))
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertNotIn(self.username, response.data.values())
+
+    def test_access_endpoint_with_invalid_token(self):
+        response = self.client.get(
+            reverse("me"),
+            headers={"Authorization": f"Bearer {self.access_token}invalid"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertNotIn(self.username, response.data.values())
+
+    def test_refresh_access_token_with_valid_refresh_token(self):
+        response = self.client.post(
+            reverse("token_refresh"),
+            data={"refresh": self.refresh_token}
+        )
+
+        new_access_token = response.data["access"]
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertNotEqual(new_access_token, self.access_token)
+
+    def test_refresh_access_token_with_invalid_refresh_token(self):
+        response = self.client.post(
+            reverse("token_refresh"),
+            data={"refresh": self.refresh_token + "invalid"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertNotIn("access", response.data)
+
+    def test_refreshed_access_token_works(self):
+        response = self.client.post(
+            reverse("token_refresh"),
+            data={"refresh": self.refresh_token}
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        new_access_token = response.data["access"]
+
+        response = self.client.get(
+            reverse("me"),
+            headers={"Authorization": f"Bearer {new_access_token}"}
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertIn(self.username, response.data["username"])
