@@ -20,7 +20,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('accounts/', include('users.urls', namespace="users")),
-    path('api/', include('api.urls')),
+    path('api/', include([
+        path('', include('core.api.urls')),
+        path('', include('users.api.urls')),
+    ])),
     path('', include('social_django.urls', namespace="social")),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
 ]

@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     'social_django',
     'rest_framework_simplejwt',
     'core.apps.CoreConfig',
-    'api.apps.ApiConfig',
     'users.apps.UsersConfig',
 ]
 

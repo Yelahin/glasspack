@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import ProductModelViewSet, UserMessageView, UserModelViewSet, me, register_user
+from .views import UserMessageView, UserModelViewSet, me, register_user
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -8,7 +8,6 @@ from rest_framework_simplejwt.views import (
 
 
 router = DefaultRouter()
-router.register(r'products', ProductModelViewSet, basename="products")
 router.register(r'users', UserModelViewSet, basename="users")
 
 

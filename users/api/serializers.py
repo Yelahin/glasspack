@@ -1,15 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from core.models import Product
 from users.models import UserMessage
 from django.contrib.auth.password_validation import validate_password
-
-
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        exclude = ["time_create"]
-
 
 class UserMessageSerializer(serializers.ModelSerializer):
     class Meta:
