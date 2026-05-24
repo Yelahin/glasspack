@@ -1,0 +1,18 @@
+[
+  {
+    "model": "core.category",
+    "pk": 1,
+    "fields": {
+      "name": "Bottles",
+      "slug": "bottles"
+    }
+  },
+  {
+    "model": "core.category",
+    "pk": 2,
+    "fields": {
+      "name": "Jars",
+      "slug": "jars"
+    }
+  }
+]
