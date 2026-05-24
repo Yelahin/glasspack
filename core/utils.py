@@ -17,14 +17,14 @@ class ProductPageContext:
         self.qs = None
 
     def get_selected_types(self):
-        all_cats = Category.objects.values_list('name', flat=True).distinct()
+        all_cats = Category.objects.values_list('slug', flat=True).distinct()
         selected_types = self.request.GET.get('categories', '')
         selected_types = selected_types.split(',') if selected_types else all_cats
         return selected_types
 
     def get_qs(self):
         if self.qs is None:
-            self.qs = Product.objects.filter(is_published=True, categories__name__in=self.get_selected_types())
+            self.qs = Product.objects.filter(is_published=True, categories__slug__in=self.get_selected_types())
         return self.qs
 
     def get_selected_obj(self, obj_name):
