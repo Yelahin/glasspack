@@ -17,7 +17,7 @@ class UsersMessagesAPITestCase(APITestCase):
 
         #unauthorized user
         response = self.client.post(path=reverse("contacts"), data=data)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         #authorized user
         self.client.login(username="user", password="user_password")
         response = self.client.post(path=reverse("contacts"), data=data)
