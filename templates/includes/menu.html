@@ -11,17 +11,17 @@
 <ul class="menu-user-section">
     {% if user.is_authenticated %}
     <li class="menu-user-item">
-        <a href="{% url 'glasspack_users:profile'%}">{{ user.username }}</a>
-        <form method="post" action="{% url 'glasspack_users:logout' %}" class="menu-logout-form">
+        <a href="{% url 'users:profile'%}">{{ user.username }}</a>
+        <form method="post" action="{% url 'users:logout' %}" class="menu-logout-form">
             {% csrf_token %}
             <button type="submit" class="btn btn-glass menu-logout-btn">Logout</button>
         </form>
     </li>
     {% else %}
     <li class="menu-user-item">
-        <a href="{% url 'glasspack_users:sign_up'%}">Sign up</a>
+        <a href="{% url 'users:sign_up'%}">Sign up</a>
         <span>|</span>
-        <a href="{% url 'glasspack_users:login'%}">Login</a>
+        <a href="{% url 'users:login'%}">Login</a>
     </li>
     {% endif%}
 </ul>
@@ -39,19 +39,19 @@
         {% for page in menu%}
         <a href="{% url page.name %}">{{ page.title }}</a>
         {% endfor %}
-        
+
         {% if user.is_authenticated %}
         <div class="mobile-user">
             <span class="user-badge">{{ user.username|first|upper }}</span>
-            <a href="{% url 'glasspack_users:profile'%}">{{ user.username }}</a>
-            <form method="post" action="{% url 'glasspack_users:logout' %}">
+            <a href="{% url 'users:profile'%}">{{ user.username }}</a>
+            <form method="post" action="{% url 'users:logout' %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Logout</button>
             </form>
         </div>
         {% else %}
-        <a href="{% url 'glasspack_users:sign_up'%}">Sign Up</a>
-        <a href="{% url 'glasspack_users:login'%}">Login</a>
+        <a href="{% url 'users:sign_up'%}">Sign Up</a>
+        <a href="{% url 'users:login'%}">Login</a>
         {% endif%}
     </nav>
 </div>

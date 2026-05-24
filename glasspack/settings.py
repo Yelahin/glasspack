@@ -59,9 +59,9 @@ INSTALLED_APPS = [
     'captcha',
     'social_django',
     'rest_framework_simplejwt',
-    'glasspack_site.apps.GlasspackSiteConfig',
-    'glasspack_api.apps.GlasspackApiConfig',
-    'glasspack_users.apps.GlasspackUsersConfig',
+    'core.apps.CoreConfig',
+    'api.apps.ApiConfig',
+    'users.apps.UsersConfig',
 ]
 
 SITE_ID = 1
@@ -86,7 +86,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'glasspack_site.context_processors.get_pages_menu',
+                'core.context_processors.get_pages_menu',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -193,14 +193,14 @@ CAPTCHA_IMAGE_SIZE = 100, 50
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
-LOGIN_URL = "glasspack_users:login"
+LOGIN_URL = "users:login"
 
 #Django backends
 
 AUTHENTICATION_BACKENDS = [
     "social_core.backends.google.GoogleOAuth2",
     "django.contrib.auth.backends.ModelBackend",
-    'glasspack_users.authentication.EmailAuthBackend'
+    'users.authentication.EmailAuthBackend'
 ]
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -229,7 +229,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.social_user',
     'social_core.pipeline.user.get_username',
     'social_core.pipeline.social_auth.associate_by_email',
-    'glasspack_users.pipeline.new_users_handler',
+    'users.pipeline.new_users_handler',
     'social_core.pipeline.user.create_user',
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
