@@ -10,6 +10,7 @@ django-filter==25.2
 django-ranged-response==0.2.0
 django-simple-captcha==0.6.2
 djangorestframework==3.16.1
+djangorestframework_simplejwt==5.5.1
 gunicorn==23.0.0
 idna==3.16
 oauthlib==3.3.1
