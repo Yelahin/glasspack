@@ -48,9 +48,9 @@ class ProductAPITestCase(APITestCase):
             "finish_type": self.finish_type.pk,
         }
 
-        #unauthorized user
+        #unauthorized user 
         response = self.client.post(path=reverse("products-list"), data=data)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         #authorized user
         self.client.login(username="user", password="user_password")
         response = self.client.post(path=reverse("products-list"), data=data)
@@ -62,9 +62,9 @@ class ProductAPITestCase(APITestCase):
 
     def test_only_super_user_can_update_product(self):
         data = {"name": "New product"}
-        #unauthorized user
+        #unauthorized user 
         response = self.client.patch(reverse("products-detail", kwargs={"pk": self.product.pk}), data)
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         #authorized user
         self.client.login(username="user", password="user_password")
         response = self.client.patch(reverse("products-detail", kwargs={"pk": self.product.pk}), data)
@@ -75,9 +75,9 @@ class ProductAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_only_super_user_can_delete_prodcut(self):
-        #unauthorized user
+        #unauthorized user 
         response = self.client.delete(reverse("products-detail", kwargs={"pk": self.product.pk}))
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.assertTrue(Product.objects.filter(name="Bottle 1").exists())
         #authorized user
         self.client.login(username="user", password="user_password")
