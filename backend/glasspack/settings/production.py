@@ -13,3 +13,8 @@ CSRF_TRUSTED_ORIGINS = [
     # Put domain here
     "example.com"
 ]
+
+# Make django listen to frontend app requests
+CORS_ALLOWED_ORIGINS = [
+    # Your frontend app domains
+]
